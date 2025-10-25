@@ -1,0 +1,10 @@
+[theme]
+# Forzar el modo oscuro
+base="dark"
+
+# Colores del tema
+primaryColor="#ec4899" # Rosa Neón
+backgroundColor="#000000" # Fondo Negro
+secondaryBackgroundColor="#111827" # Gris oscuro (cajas)
+textColor="#ffffff"
+font="sans serif"
