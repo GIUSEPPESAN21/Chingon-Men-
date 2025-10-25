@@ -2,11 +2,11 @@ import streamlit as st
 import datetime
 
 # --- 1. CONFIGURACIÓN DE LA PÁGINA ---
-# Usamos "centered" para que no sea demasiado ancho en pantallas grandes
+# "wide" soluciona el problema de que se vea "estrecho"
 st.set_page_config(
     page_title="Chingon Cocteles",
     page_icon="💀",
-    layout="centered",
+    layout="wide", # <-- MÁS GRANDE
     initial_sidebar_state="collapsed"
 )
 
@@ -14,8 +14,7 @@ st.set_page_config(
 LOGO_URL = "https://github.com/GIUSEPPESAN21/Chingon-Logo/blob/main/Captura%20de%20pantalla%202025-10-20%20080734.png?raw=true"
 SAVA_LOGO_URL = "https://github.com/GIUSEPPESAN21/LOGO-SAVA/blob/main/logo_sava.png?raw=true"
 
-# --- 3. DATOS DEL MENÚ (Organizados) ---
-
+# --- 3. DATOS DEL MENÚ (Sin cambios) ---
 # Datos Pestaña 1: Granizados
 GRANIZADOS_PRINCIPALES = [
     {"name": "NO MAMES", "desc": "Jagermeister y Redbull Con Apariencia Color Caramelo"},
@@ -52,8 +51,6 @@ EXTRAS_SIN_ALCOHOL = [
     {"type": "simple", "name": "CANECA AGUARDIENTE", "price": "$40.000"},
     {"type": "card", "name": "GOMAS ENCHILADAS", "desc": "", "prices": [("Tamaño S", "$10.000"), ("Tamaño M", "$15.000"), ("Tamaño L", "$19.000")]}
 ]
-
-# Datos Pestaña 2: Picar/Compartir
 PA_PICAR = [
     {"name": "ALITAS", "desc": "5 Alitas, Porcion De Papas, Jugo Hit En Caja", "price": "$16.000"},
     {"name": "NUGGETS", "desc": "8 Nuggets, Porcion De Papas, Jugo Hit En Caja", "price": "$16.000"},
@@ -67,8 +64,6 @@ PA_COMPARTIR = [
     {"name": "LA PECERA", "desc": "Granizado Azul, Fresa, Naranja, Gomitas, Perlas Explosivas y Cerveza Coronita (2 a 4 Personas)", "prices": [("", "$50.000")]},
     {"name": "CUATAZO", "desc": "Bebida Michelada con Tajín Gomitas bañadas en Chamoy, Tajín y Manzana verde (Mamoncillo) o Guayaba Manzana", "prices": [("", "$24.000")]}
 ]
-
-# Datos Pestaña 3: Cocteles y Micheladas
 COCTELES = [
     {"name": "EXPLOSION DE FRESAS", "desc": "Smirnoff Con Fresas y Leche Condensada", "price": "$25.000"},
     {"name": "CHINGON", "desc": "Tequila, Limon, Sirope Cosmico, etc. Servido En Botella Exclusiva Con Gajos De Limon (2 Personas)", "price": "$50.000"},
@@ -86,8 +81,6 @@ MICHELADAS = [
     {"name": "MILO OREO", "desc": "Milo Con Crema de Chocolate, Chantilli y Galletas Oreo", "price": "$13.000"},
     {"name": "MILO RAMITO", "desc": "Milo Con Crema de Chocolate, Chantilli y Cakes de Choco ramo", "price": "$13.000"}
 ]
-
-# Datos Pestaña 4: Ramen
 RAMEN_LIST = [
     {"name": "BULBACK EN BOLSA NEGRO", "note": "(Incluye Bowl y Palitos Chinos)", "price": "$25.000"},
     {"name": "BULBACK CARBONA BOLSA", "note": "(Incluye Bowl y Palitos Chinos)", "price": "$27.000"},
@@ -101,8 +94,6 @@ RAMEN_LIST = [
     {"name": "RAMEN KIMCHI", "note": "(Incluye Bowl y Palitos Chinos)", "price": "$17.000"},
     {"name": "RAMEN NUDELS", "note": "(Incluye Bowl y Palitos Chinos)", "price": "$14.000"}
 ]
-
-# Datos Pestaña 5: Bebidas
 OTRAS_BEBIDAS = [
     {"name": "CORONITA", "price": "$8.000"}, {"name": "AGUILA", "price": "$8.000"},
     {"name": "GATORADE", "price": "$6.000"}, {"name": "GASEOSA", "price": "$4.000"},
@@ -123,8 +114,6 @@ BEBIDAS_IMPORTADAS = [
     {"name": "SHOT CHIVAS", "price": "$24.000"}, {"name": "SHOT VODKA", "price": "$16.000"},
     {"name": "SHOT JAGERMEISTER", "price": "$18.000"}
 ]
-
-# Datos Pestaña 6: Dulces
 DULCES = [
     {"name": "CHOCOLATINA MR BETS", "price": "$22.000"}, {"name": "PALITOS POCKY", "price": "$25.000"},
     {"name": "NERDS CAJA GRANDE", "price": "$18.000"}, {"name": "NERDS BOLSA", "price": "$32.000"},
@@ -142,447 +131,214 @@ DULCES = [
     {"name": "NUTELA", "price": "$4.000"}
 ]
 
-# --- 4. ESTILOS CSS (Inyectados) ---
-# Se inyecta el CSS personalizado una vez
-def inyectar_css():
+# --- 4. FUNCIONES DE RENDERIZADO NATIVAS ---
+
+def render_native_header():
+    """Dibuja el logo principal centrado"""
+    _, col_img, _ = st.columns([1, 1, 1])
+    with col_img:
+        st.image(LOGO_URL, use_column_width='always')
+
+def render_native_footer():
+    """Dibuja el pie de página nativo"""
+    st.divider()
     st.markdown("""
-    <style>
-    /* 1. Carga de Fuentes */
-    @import url('https://fonts.googleapis.com/css2?family=Bungee&family=Teko:wght@400;600&display=swap');
-
-    /* 2. Estilos Globales (Fondo de calavera) */
-    body {
-        font-family: 'Teko', sans-serif;
-        background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text y="50" font-size="90" fill="rgba(255,255,255,0.03)" dominant-baseline="central" text-anchor="middle">💀</text></svg>');
-    }
-
-    /* 3. Logo Principal (Sombra Neón) */
-    .main-logo {
-        filter: drop-shadow(0 0 15px rgba(236, 72, 153, 0.6));
-    }
-
-    /* 4. Estilos de fuentes */
-    .font-bungee { font-family: 'Bungee', cursive; }
-    .font-teko { font-family: 'Teko', sans-serif; }
-
-    /* 5. Efectos Neón */
-    .neon-pink-text {
-        color: #fce7f3;
-        text-shadow: 0 0 5px #fce7f3, 0 0 10px #fce7f3, 0 0 15px #ec4899, 0 0 20px #ec4899;
-    }
-    .neon-green-text {
-        color: #dcfce7;
-        text-shadow: 0 0 5px #dcfce7, 0 0 10px #dcfce7, 0 0 15px #22c55e, 0 0 20px #22c55e;
-    }
-    .neon-yellow-text {
-        color: #fefce8;
-        text-shadow: 0 0 5px #fefce8, 0 0 10px #fefce8, 0 0 15px #eab308, 0 0 20px #eab308;
-    }
-    .neon-cyan-text {
-        color: #cffafe;
-        text-shadow: 0 0 5px #cffafe, 0 0 10px #cffafe, 0 0 15px #06b6d4, 0 0 20px #06b6d4;
-    }
-
-    /* 6. Estilo de Pestañas */
-    [data-baseweb="tab-list"] button {
-        font-family: 'Bungee', cursive !important;
-        font-size: 1.1rem !important;
-        color: #9ca3af !important;
-        border-bottom: 2px solid transparent !important;
-        transition: all 0.3s ease !important;
-    }
-    [data-baseweb="tab-list"] button:hover {
-        color: #fefce8 !important;
-    }
-    [data-baseweb="tab-list"] button[aria-selected="true"] {
-        color: #fefce8 !important;
-        border-bottom-color: #eab308 !important;
-        text-shadow: 0 0 5px #eab308 !important;
-    }
-
-    /* 7. Estilo de Cajas de Menú (Items Grandes) */
-    .menu-item-box {
-        background-color: #111827;
-        border: 1px solid #374151;
-        padding: 1.25rem;
-        border-radius: 0.5rem;
-        margin-bottom: 1rem;
-        height: 100%;
-        transition: all 0.3s ease;
-    }
-    .menu-item-box:hover {
-        border-color: #ec4899;
-        box-shadow: 0 0 10px #ec4899;
-    }
-    .menu-item-box h3 {
-        font-family: 'Teko', sans-serif;
-        font-size: 1.875rem;
-        font-weight: 600;
-        color: white;
-    }
-    .menu-item-box p {
-        font-family: 'Teko', sans-serif;
-        font-size: 1.25rem;
-        color: #9ca3af;
-        margin-bottom: 0.5rem;
-        min-height: 1.5rem; /* Para alinear cajas vacías */
-    }
-    .menu-item-box .price-item {
-        display: flex;
-        justify-content: space-between;
-        font-family: 'Teko', sans-serif;
-        font-size: 1.5rem;
-    }
-    .menu-item-box .price-item span:first-child {
-        color: #d1d5db;
-    }
-    .menu-item-box .price-item span:last-child {
-        font-weight: 700;
-    }
-
-    /* 8. Estilo de Listas (Items Pequeños) */
-    .menu-item-list-wrapper {
-        background-color: #111827;
-        border: 1px solid #374151;
-        padding: 0.75rem 1.25rem;
-        border-radius: 0.5rem;
-        margin-bottom: 1rem;
-    }
-    .menu-item-list {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        border-bottom: 1px solid #374151;
-        padding-top: 0.5rem;
-        padding-bottom: 0.5rem;
-    }
-    .menu-item-list:last-child {
-        border-bottom: none;
-    }
-    .menu-item-list h3 {
-        font-family: 'Teko', sans-serif;
-        font-size: 1.875rem;
-        color: white;
-        margin: 0;
-    }
-    .menu-item-list span {
-        font-family: 'Teko', sans-serif;
-        font-size: 1.875rem;
-        font-weight: 700;
-    }
-    .menu-item-list p {
-        font-size: 1.1rem;
-        color: #9ca3af;
-        margin: 0;
-        margin-left: 10px;
-    }
-
-    /* 9. Estilo de Promos */
-    .promo-box {
-        padding: 1.5rem;
-        background-color: #111827;
-        border-radius: 0.5rem;
-        text-align: center;
-        border-width: 2px;
-        margin-top: 2rem;
-    }
-    .promo-pink { border-color: #ec4899; box-shadow: 0 0 10px #ec4899; }
-    .promo-green { border-color: #22c55e; box-shadow: 0 0 10px #22c55e; }
-    .promo-cyan { border-color: #06b6d4; box-shadow: 0 0 10px #06b6d4; }
-    
-    /* 10. Layout Grids (Para el HTML construido) */
-    .grid { display: grid; }
-    .grid-cols-1 { grid-template-columns: repeat(1, minmax(0, 1fr)); }
-    .gap-6 { gap: 1.5rem; }
-    
-    @media (min-width: 768px) {
-        .md\\:grid-cols-2 {
-            grid-template-columns: repeat(2, minmax(0, 1fr));
-        }
-        .md\\:gap-x-6 {
-             column-gap: 1.5rem;
-        }
-    }
-    </style>
+    <div style="text-align: center; font-size: 1.2rem;">
+        <b>¡Siguenos en Nuestras Redes!</b>
+        <br>
+        <a href="https://www.instagram.com/CHINGON_COCTELES" target="_blank">@CHINGON_COCTELES</a> (Instagram)
+        <br>
+        <a href="https://www.tiktok.com/@CHINGON.CCTELES" target="_blank">@CHINGON.CCTELES</a> (TikTok)
+    </div>
     """, unsafe_allow_html=True)
-
-# --- 5. FUNCIONES PARA CONSTRUIR EL HTML DE CADA PESTAÑA ---
-
-def build_card_html(name, desc, prices):
-    """Construye el HTML para una caja de item GRANDE"""
-    prices_html = ""
-    for label, price in prices:
-        prices_html += f"""
-        <div class="price-item">
-            <span>{label}</span>
-            <span class="neon-green-text">{price}</span>
-        </div>
-        """
-    desc_html = f"<p>{desc}</p>" if desc else "<p></p>" # <p> vacío para alinear
-    return f"""
-    <div class="menu-item-box">
-        <h3>{name}</h3>
-        {desc_html}
-        {prices_html}
-    </div>
-    """
-
-def build_simple_card_html(name, price):
-    """Construye el HTML para una caja de item GRANDE y SIMPLE"""
-    return f"""
-    <div class="menu-item-box">
-        <div class="price-item">
-            <h3>{name}</h3>
-            <span class="neon-green-text">{price}</span>
-        </div>
-    </div>
-    """
-
-def build_list_html(items_list):
-    """Construye el HTML para una LISTA de items"""
-    items_html = ""
-    for item in items_list:
-        note_html = f"<p>{item['note']}</p>" if 'note' in item and item['note'] else ""
-        items_html += f"""
-        <div class="menu-item-list">
-            <div style="display: flex; align-items: center;">
-                <h3>{item['name']}</h3>
-                {note_html}
-            </div>
-            <span class="neon-green-text">{item['price']}</span>
-        </div>
-        """
-    return f"<div class='menu-item-list-wrapper'>{items_html}</div>"
-
-# --- Funciones constructoras de Pestañas ---
-
-def build_granizados_tab_html():
-    html = ["<h2 class='font-bungee neon-green-text' style='text-align: center;'>Granizados</h2>"]
     
-    # --- MEJORA: 1 Columna para Granizados (más grande) ---
-    html.append("<div class='grid grid-cols-1 gap-6'>")
-    for item in GRANIZADOS_PRINCIPALES:
-        html.append(build_card_html(item["name"], item["desc"], PRECIOS_GRANIZADOS))
-    html.append("</div>")
-
-    html.append("<h3 class='font-bungee neon-cyan-text' style='text-align: center; margin-top: 2rem;'>Granizados Cremosos</h3>")
-    html.append("<div class='grid grid-cols-1 md:grid-cols-2 gap-6'>")
-    for item in GRANIZADOS_CREMOSOS:
-        html.append(build_simple_card_html(item["name"], item["price"]))
-    html.append("</div>")
-
-    html.append("<h3 class='font-bungee neon-cyan-text' style='text-align: center; margin-top: 2rem;'>Extras y Sin Alcohol</h3>")
-    html.append("<div class='grid grid-cols-1 md:grid-cols-2 gap-6'>")
-    for item in EXTRAS_SIN_ALCOHOL:
-        if item["type"] == "card":
-            html.append(build_card_html(item["name"], item["desc"], item["prices"]))
-        elif item["type"] == "simple":
-            html.append(build_simple_card_html(item["name"], item["price"]))
-    html.append("</div>")
+    st.divider()
     
-    return "".join(html)
-
-def build_compartir_tab_html():
-    html = ["<h2 class='font-bungee neon-green-text' style='text-align: center;'>Pa' Picar y Compartir</h2>"]
-    
-    html.append("<h3 class='font-bungee neon-cyan-text' style='text-align: center; margin-top: 2rem;'>Pa' Picar</h3>")
-    html.append("<div class='grid grid-cols-1 md:grid-cols-2 gap-6'>")
-    for item in PA_PICAR:
-        html.append(build_card_html(item["name"], item["desc"], [("", item["price"])]))
-    html.append("</div>")
-
-    html.append("<h3 class='font-bungee neon-cyan-text' style='text-align: center; margin-top: 2rem;'>Pa' Compartir</h3>")
-    html.append("<div class='grid grid-cols-1 md:grid-cols-2 gap-6'>")
-    for item in PA_COMPARTIR:
-        html.append(build_card_html(item["name"], item["desc"], item["prices"]))
-    html.append("</div>")
-    
-    return "".join(html)
-
-def build_cocteles_tab_html():
-    html = ["<h2 class='font-bungee neon-pink-text' style='text-align: center;'>Cocteles y Micheladas</h2>"]
-    
-    html.append("<h3 class='font-bungee neon-cyan-text' style='text-align: center; margin-top: 2rem;'>Cocteles</h3>")
-    html.append("<div class='grid grid-cols-1 md:grid-cols-2 gap-6'>")
-    for item in COCTELES:
-        html.append(build_card_html(item["name"], item["desc"], [("", item["price"])]))
-    html.append("</div>")
-
-    html.append("<h3 class='font-bungee neon-cyan-text' style='text-align: center; margin-top: 2rem;'>Micheladas y Mas</h3>")
-    # --- MEJORA: 1 Columna para Micheladas (más grande) ---
-    html.append("<div class='grid grid-cols-1 gap-6'>")
-    for item in MICHELADAS:
-        html.append(build_card_html(item["name"], item["desc"], [("", item["price"])]))
-    html.append("</div>")
-    
-    return "".join(html)
-
-def build_ramen_tab_html():
-    html = ["<h2 class='font-bungee neon-yellow-text' style='text-align: center;'>Ramen</h2>"]
-    html.append("<div class='grid grid-cols-1 gap-6'>")
-    html.append(build_list_html(RAMEN_LIST))
-    html.append("</div>")
-    return "".join(html)
-
-def build_bebidas_tab_html():
-    html = ["<h2 class='font-bungee neon-yellow-text' style='text-align: center;'>Bebidas</h2>"]
-    
-    html.append("<h3 class='font-bungee neon-cyan-text' style='text-align: center; margin-top: 2rem;'>Otras Bebidas</h3>")
-    html.append("<div class='grid grid-cols-1 md:grid-cols-2 gap-6'>")
-    split_idx = len(OTRAS_BEBIDAS) // 2 + (len(OTRAS_BEBIDAS) % 2) # División más equitativa
-    html.append(build_list_html(OTRAS_BEBIDAS[:split_idx]))
-    html.append(build_list_html(OTRAS_BEBIDAS[split_idx:]))
-    html.append("</div>")
-
-    html.append("<h3 class='font-bungee neon-cyan-text' style='text-align: center; margin-top: 2rem;'>Bebidas Importados</h3>")
-    html.append("<div class='grid grid-cols-1 md:grid-cols-2 gap-6'>")
-    split_idx = len(BEBIDAS_IMPORTADAS) // 2 + (len(BEBIDAS_IMPORTADAS) % 2)
-    html.append(build_list_html(BEBIDAS_IMPORTADAS[:split_idx]))
-    html.append(build_list_html(BEBIDAS_IMPORTADAS[split_idx:]))
-    html.append("</div>")
-    
-    return "".join(html)
-
-def build_dulces_tab_html():
-    html = ["<h2 class='font-bungee neon-yellow-text' style='text-align: center;'>Dulces Importados</h2>"]
-    
-    html.append("<div class='grid grid-cols-1 md:grid-cols-2 gap-6'>")
-    split_idx = len(DULCES) // 2 + (len(DULCES) % 2)
-    html.append(build_list_html(DULCES[:split_idx]))
-    html.append(build_list_html(DULCES[split_idx:]))
-    html.append("</div>")
-    
-    return "".join(html)
-
-def build_promos_tab_html():
-    # Esta pestaña es estática, así que solo devolvemos el HTML
-    return """
-    <h2 class='font-bungee neon-yellow-text' style='text-align: center;'>Promos e Info</h2>
-    
-    <div class="promo-box promo-pink">
-        <h3 class="font-bungee neon-pink-text" style="font-size: 2rem; margin-bottom: 0.5rem;">¡DULCERIA!</h3>
-        <p style="font-size: 1.75rem;">¡En Chingon Cocteles contamos con dulceria mexicana y oriental!</p>
-    </div>
-    
-    <div class="promo-box promo-cyan">
-        <h3 class="font-bungee neon-cyan-text" style="font-size: 2rem; margin-bottom: 0.5rem;">YA DISPONIBLE TERMOS</h3>
-    </div>
-    
-    <div class="promo-box promo-green">
-        <h3 class="font-bungee neon-green-text" style="font-size: 2rem; margin-bottom: 0.5rem;">¡SOMOS ARTE!</h3>
-        <p style="font-size: 1.75rem;">Podrás tambien pintar mientras disfrutas de un granizado</p>
-        <p style="font-size: 1.25rem; color: #d1d5db;">(Pintura en Ceramica + Pincel + Vinilo)</p>
-    </div>
-    
-    <div class="promo-box promo-pink">
-        <h3 class="font-bungee neon-pink-text" style="font-size: 2rem; margin-bottom: 0.5rem;">LUNES DE AMIGOS</h3>
-        <p style="font-size: 1.75rem;">¡Compra 2 Granizados y llevas el 3 GRATIS!</p>
-    </div>
-    
-    <div class="promo-box promo-green">
-        <h3 class="font-bungee neon-green-text" style="font-size: 2rem; margin-bottom: 0.5rem;">MARTES DE VENENO</h3>
-        <p style="font-size: 1.75rem;">¡Jeringa GRATIS para todos los granizados!</p>
-    </div>
-    """
-
-def render_header():
-    """Dibuja el logo principal"""
-    st.markdown(f"""
-    <header style="text-align: center; margin-top: 2rem; margin-bottom: 2rem;">
-        <img src="{LOGO_URL}" alt="Chingon Cocteles Logo" class="main-logo" style="width: auto; height: 12rem; margin: auto;">
-    </header>
-    """, unsafe_allow_html=True)
-
-def render_footer():
-    """Dibuja el pie de página, redes y sección SAVA"""
-    st.markdown("---")
-    
-    # Redes Sociales
-    st.markdown("""
-    <footer style="text-align: center; margin-top: 2rem;">
-        <h3 class="font-bungee neon-pink-text" style="font-size: 1.5rem; margin-bottom: 1rem;">¡Siguenos en Nuestras Redes!</h3>
-        <div style="display: flex; justify-content: center; gap: 2rem; margin-bottom: 1.5rem; font-size: 1.5rem; font-family: 'Teko';">
-            <a href="https://www.instagram.com/CHINGON_COCTELES" target="_blank" style="color: #d1d5db; text-decoration: none; transition: all 0.3s ease;">
-                @CHINGON_COCTELES
-            </a>
-            <a href="https://www.tiktok.com/@CHINGON.CCTELES" target="_blank" style="color: #d1d5db; text-decoration: none; transition: all 0.3s ease;">
-                @CHINGON.CCTELES
-            </a>
-        </div>
-    </footer>
-    """, unsafe_allow_html=True)
-
-    # Sección SAVA (Usa f-string para evitar el KeyError)
-    sava_html = f"""
-    <div class="menu-item-box" style="margin-top: 2rem;">
-        <h3 class="font-bungee neon-cyan-text" style="text-align: center; font-size: 1.5rem; margin-bottom: 1.5rem;">Desarrollado Por</h3>
-        <div style="display: flex; flex-direction: column; align-items: center; text-align: center;">
-            <img src="{SAVA_LOGO_URL}" alt="Logo SAVA" style="width: 8rem; height: 8rem; margin-bottom: 1rem;">
-            <div>
-                <h4 class="font-bungee" style="font-size: 1.5rem; color: white;">Joseph Javier Sánchez Acuña</h4>
-                <p class="neon-cyan-text" style="font-size: 1.25rem; font-weight: 600; margin-bottom: 0.5rem;">CEO - SAVA SOFTWARE FOR ENGINEERING</p>
-                <p style="font-size: 1.25rem; color: #d1d5db;">
-                    Líder visionario con una profunda experiencia en inteligencia artificial y desarrollo de software. Joseph es el cerebro detrás de la arquitectura de OSIRIS, impulsando la innovación y asegurando que nuestra tecnología se mantenga a la vanguardia.
-                </p>
-            </div>
-        </div>
-    </div>
-    """
-    st.markdown(sava_html, unsafe_allow_html=True)
-
-    # Copyright
+    with st.container(border=True):
+        st.subheader("Desarrollado Por")
+        cols_sava = st.columns([1, 3])
+        with cols_sava[0]:
+            st.image(SAVA_LOGO_URL)
+        with cols_sava[1]:
+            st.write("#### Joseph Javier Sánchez Acuña")
+            st.caption("CEO - SAVA SOFTWARE FOR ENGINEERING")
+            st.write("Líder visionario con una profunda experiencia en inteligencia artificial y desarrollo de software. Joseph es el cerebro detrás de la arquitectura de OSIRIS, impulsando la innovación y asegurando que nuestra tecnología se mantenga a la vanguardia.")
+            
     current_year = datetime.date.today().year
-    st.markdown(f"""
-    <p style="font-family: 'Teko'; font-size: 1.1rem; color: #6b7280; text-align: center; margin-top: 2rem;">
-        &copy; {current_year} Chingon Cocteles. Todos los derechos reservados.
-    </p>
-    """, unsafe_allow_html=True)
+    st.caption(f"© {current_year} Chingon Cocteles. Todos los derechos reservados.")
 
-
-# --- 7. FUNCIÓN PRINCIPAL DE LA APP ---
+# --- 5. FUNCIÓN PRINCIPAL DE LA APP ---
 def main():
-    # 1. Inyectar todos los estilos CSS
-    inyectar_css()
+    # 1. Dibujar el logo
+    render_native_header()
 
-    # 2. Dibujar el logo
-    render_header()
-
-    # 3. Definir las pestañas
+    # 2. Definir las pestañas
     tab_list = [
-        "Granizados", 
-        "Pa' Picar/Compartir", 
-        "Cocteles y Micheladas", 
-        "Ramen", 
-        "Bebidas", 
-        "Dulces", 
-        "Promos"
+        "💀 Granizados", 
+        "🔥 Pa' Picar/Compartir", 
+        "🍹 Cocteles y Micheladas", 
+        "🍜 Ramen", 
+        "🥤 Bebidas", 
+        "🍬 Dulces", 
+        "🎉 Promos"
     ]
-    tab_granizados, tab_compartir, tab_cocteles, tab_ramen, tab_bebidas, tab_dulces, tab_promos = st.tabs(tab_list)
+    tabs = st.tabs(tab_list)
 
-    # 4. Renderizar el HTML de cada pestaña (¡LA SOLUCIÓN!)
-    with tab_granizados:
-        st.markdown(build_granizados_tab_html(), unsafe_allow_html=True)
-    
-    with tab_compartir:
-        st.markdown(build_compartir_tab_html(), unsafe_allow_html=True)
+    # 3. Renderizar cada pestaña con COMPONENTES NATIVOS
 
-    with tab_cocteles:
-        st.markdown(build_cocteles_tab_html(), unsafe_allow_html=True)
-    
-    with tab_ramen:
-        st.markdown(build_ramen_tab_html(), unsafe_allow_html=True)
+    # --- PESTAÑA 1: GRANIZADOS ---
+    with tabs[0]:
+        st.header("Granizados", divider="green")
+        cols_granizados = st.columns(2)
+        for i, item in enumerate(GRANIZADOS_PRINCIPALES):
+            with cols_granizados[i % 2]:
+                with st.container(border=True):
+                    st.subheader(item['name'])
+                    st.caption(item['desc'])
+                    for p_label, p_price in PRECIOS_GRANIZADOS:
+                        st.write(f"{p_label}: **:green[{p_price}]**")
         
-    with tab_bebidas:
-        st.markdown(build_bebidas_tab_html(), unsafe_allow_html=True)
+        st.header("Granizados Cremosos", divider="cyan")
+        cols_cremosos = st.columns(2)
+        for i, item in enumerate(GRANIZADOS_CREMOSOS):
+            with cols_cremosos[i % 2]:
+                with st.container(border=True):
+                    st.subheader(item['name'])
+                    st.write(f"**:green[{item['price']}]**")
+                    
+        st.header("Extras y Sin Alcohol", divider="cyan")
+        cols_extras = st.columns(2)
+        for i, item in enumerate(EXTRAS_SIN_ALCOHOL):
+            with cols_extras[i % 2]:
+                with st.container(border=True):
+                    st.subheader(item['name'])
+                    if item.get('desc'):
+                        st.caption(item['desc'])
+                    
+                    if item["type"] == "card":
+                        for p_label, p_price in item['prices']:
+                            st.write(f"{p_label}: **:green[{p_price}]**")
+                    elif item["type"] == "simple":
+                        st.write(f"**:green[{item['price']}]**")
+
+    # --- PESTAÑA 2: PA' PICAR / COMPARTIR ---
+    with tabs[1]:
+        st.header("Pa' Picar", divider="green")
+        cols_picar = st.columns(2)
+        for i, item in enumerate(PA_PICAR):
+            with cols_picar[i % 2]:
+                with st.container(border=True):
+                    st.subheader(item['name'])
+                    st.caption(item['desc'])
+                    st.write(f"**:green[{item['price']}]**")
+
+        st.header("Pa' Compartir", divider="cyan")
+        cols_compartir = st.columns(2)
+        for i, item in enumerate(PA_COMPARTIR):
+            with cols_compartir[i % 2]:
+                with st.container(border=True):
+                    st.subheader(item['name'])
+                    if item.get('desc'):
+                        st.caption(item['desc'])
+                    for p_label, p_price in item['prices']:
+                        st.write(f"{p_label}: **:green[{p_price}]**")
+
+    # --- PESTAÑA 3: COCTELES Y MICHELADAS ---
+    with tabs[2]:
+        st.header("Cocteles", divider="pink")
+        cols_cocteles = st.columns(2)
+        for i, item in enumerate(COCTELES):
+            with cols_cocteles[i % 2]:
+                with st.container(border=True):
+                    st.subheader(item['name'])
+                    if item.get('desc'):
+                        st.caption(item['desc'])
+                    st.write(f"**:green[{item['price']}]**")
+
+        st.header("Micheladas y Mas", divider="pink")
+        cols_micheladas = st.columns(2) # 2 columnas para más espacio
+        for i, item in enumerate(MICHELADAS):
+            with cols_micheladas[i % 2]:
+                with st.container(border=True):
+                    st.subheader(item['name'])
+                    if item.get('desc'):
+                        st.caption(item['desc'])
+                    st.write(f"**:green[{item['price']}]**")
+
+    # --- PESTAÑA 4: RAMEN ---
+    with tabs[3]:
+        st.header("Ramen", divider="yellow")
+        cols_ramen = st.columns(2) # 2 columnas para más espacio
+        for i, item in enumerate(RAMEN_LIST):
+            with cols_ramen[i % 2]:
+                with st.container(border=True):
+                    st.subheader(item['name'])
+                    if item.get('note'):
+                        st.caption(item['note'])
+                    st.write(f"**:green[{item['price']}]**")
+
+    # --- PESTAÑA 5: BEBIDAS ---
+    with tabs[4]:
+        st.header("Otras Bebidas", divider="yellow")
+        cols_bebidas = st.columns(2) # 2 columnas para más espacio
+        split_idx = len(OTRAS_BEBIDAS) // 2 + (len(OTRAS_BEBIDAS) % 2)
         
-    with tab_dulces:
-        st.markdown(build_dulces_tab_html(), unsafe_allow_html=True)
+        with cols_bebidas[0]:
+            for item in OTRAS_BEBIDAS[:split_idx]:
+                with st.container(border=True):
+                    st.subheader(item['name'])
+                    st.write(f"**:green[{item['price']}]**")
+        with cols_bebidas[1]:
+            for item in OTRAS_BEBIDAS[split_idx:]:
+                with st.container(border=True):
+                    st.subheader(item['name'])
+                    st.write(f"**:green[{item['price']}]**")
+
+        st.header("Bebidas Importados", divider="cyan")
+        cols_importadas = st.columns(2) # 2 columnas para más espacio
+        split_idx = len(BEBIDAS_IMPORTADAS) // 2 + (len(BEBIDAS_IMPORTADAS) % 2)
+
+        with cols_importadas[0]:
+             for item in BEBIDAS_IMPORTADAS[:split_idx]:
+                with st.container(border=True):
+                    st.subheader(item['name'])
+                    st.write(f"**:green[{item['price']}]**")
+        with cols_importadas[1]:
+            for item in BEBIDAS_IMPORTADAS[split_idx:]:
+                with st.container(border=True):
+                    st.subheader(item['name'])
+                    st.write(f"**:green[{item['price']}]**")
+
+    # --- PESTAÑA 6: DULCES ---
+    with tabs[5]:
+        st.header("Dulces Importados", divider="yellow")
+        cols_dulces = st.columns(2) # 2 columnas para más espacio
+        split_idx = len(DULCES) // 2 + (len(DULCES) % 2)
         
-    with tab_promos:
-        st.markdown(build_promos_tab_html(), unsafe_allow_html=True)
+        with cols_dulces[0]:
+            for item in DULCES[:split_idx]:
+                with st.container(border=True):
+                    st.subheader(item['name'])
+                    st.write(f"**:green[{item['price']}]**")
+        with cols_dulces[1]:
+            for item in DULCES[split_idx:]:
+                with st.container(border=True):
+                    st.subheader(item['name'])
+                    st.write(f"**:green[{item['price']}]**")
+
+    # --- PESTAÑA 7: PROMOS ---
+    with tabs[6]:
+        st.header("Promos e Info", divider="yellow")
+        
+        st.info("¡DULCERIA! ¡En Chingon Cocteles contamos con dulceria mexicana y oriental!", icon="🍬")
+        st.success("¡SOMOS ARTE! Podrás tambien pintar mientras disfrutas de un granizado (Pintura en Ceramica + Pincel + Vinilo)", icon="🎨")
+        st.warning("LUNES DE AMIGOS: ¡Compra 2 Granizados y llevas el 3 GRATIS!", icon="🎉")
+        st.success("MARTES DE VENENO: ¡Jeringa GRATIS para todos los granizados!", icon="💉")
+        st.info("YA DISPONIBLE TERMOS", icon="🥤")
+
 
     # 5. Dibujar el pie de página
-    render_footer()
+    render_native_footer()
 
 if __name__ == "__main__":
     main()
