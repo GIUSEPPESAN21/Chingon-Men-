@@ -137,7 +137,8 @@ def render_native_header():
     """Dibuja el logo principal centrado"""
     _, col_img, _ = st.columns([1, 1, 1])
     with col_img:
-        st.image(LOGO_URL, use_column_width='always')
+        # CORRECCIÓN: 'use_column_width' está obsoleto, se usa 'use_container_width'
+        st.image(LOGO_URL, use_container_width=True)
 
 def render_native_footer():
     """Dibuja el pie de página nativo"""
@@ -188,7 +189,7 @@ def main():
 
     # --- PESTAÑA 1: GRANIZADOS ---
     with tabs[0]:
-        st.header("Granizados", divider="green")
+        st.header("Granizados", divider="green") # 'green' es válido
         cols_granizados = st.columns(2)
         for i, item in enumerate(GRANIZADOS_PRINCIPALES):
             with cols_granizados[i % 2]:
@@ -198,7 +199,8 @@ def main():
                     for p_label, p_price in PRECIOS_GRANIZADOS:
                         st.write(f"{p_label}: **:green[{p_price}]**")
         
-        st.header("Granizados Cremosos", divider="cyan")
+        # CORRECCIÓN: 'cyan' no es válido, se cambia a 'blue'
+        st.header("Granizados Cremosos", divider="blue")
         cols_cremosos = st.columns(2)
         for i, item in enumerate(GRANIZADOS_CREMOSOS):
             with cols_cremosos[i % 2]:
@@ -206,7 +208,8 @@ def main():
                     st.subheader(item['name'])
                     st.write(f"**:green[{item['price']}]**")
                     
-        st.header("Extras y Sin Alcohol", divider="cyan")
+        # CORRECCIÓN: 'cyan' no es válido, se cambia a 'blue'
+        st.header("Extras y Sin Alcohol", divider="blue")
         cols_extras = st.columns(2)
         for i, item in enumerate(EXTRAS_SIN_ALCOHOL):
             with cols_extras[i % 2]:
@@ -223,7 +226,7 @@ def main():
 
     # --- PESTAÑA 2: PA' PICAR / COMPARTIR ---
     with tabs[1]:
-        st.header("Pa' Picar", divider="green")
+        st.header("Pa' Picar", divider="green") # 'green' es válido
         cols_picar = st.columns(2)
         for i, item in enumerate(PA_PICAR):
             with cols_picar[i % 2]:
@@ -232,7 +235,8 @@ def main():
                     st.caption(item['desc'])
                     st.write(f"**:green[{item['price']}]**")
 
-        st.header("Pa' Compartir", divider="cyan")
+        # CORRECCIÓN: 'cyan' no es válido, se cambia a 'blue'
+        st.header("Pa' Compartir", divider="blue")
         cols_compartir = st.columns(2)
         for i, item in enumerate(PA_COMPARTIR):
             with cols_compartir[i % 2]:
@@ -245,7 +249,8 @@ def main():
 
     # --- PESTAÑA 3: COCTELES Y MICHELADAS ---
     with tabs[2]:
-        st.header("Cocteles", divider="pink")
+        # CORRECCIÓN: 'pink' no es válido, se cambia a 'violet'
+        st.header("Cocteles", divider="violet")
         cols_cocteles = st.columns(2)
         for i, item in enumerate(COCTELES):
             with cols_cocteles[i % 2]:
@@ -255,7 +260,8 @@ def main():
                         st.caption(item['desc'])
                     st.write(f"**:green[{item['price']}]**")
 
-        st.header("Micheladas y Mas", divider="pink")
+        # CORRECCIÓN: 'pink' no es válido, se cambia a 'violet'
+        st.header("Micheladas y Mas", divider="violet")
         cols_micheladas = st.columns(2) # 2 columnas para más espacio
         for i, item in enumerate(MICHELADAS):
             with cols_micheladas[i % 2]:
@@ -267,7 +273,7 @@ def main():
 
     # --- PESTAÑA 4: RAMEN ---
     with tabs[3]:
-        st.header("Ramen", divider="yellow")
+        st.header("Ramen", divider="yellow") # 'yellow' es válido
         cols_ramen = st.columns(2) # 2 columnas para más espacio
         for i, item in enumerate(RAMEN_LIST):
             with cols_ramen[i % 2]:
@@ -279,7 +285,7 @@ def main():
 
     # --- PESTAÑA 5: BEBIDAS ---
     with tabs[4]:
-        st.header("Otras Bebidas", divider="yellow")
+        st.header("Otras Bebidas", divider="yellow") # 'yellow' es válido
         cols_bebidas = st.columns(2) # 2 columnas para más espacio
         split_idx = len(OTRAS_BEBIDAS) // 2 + (len(OTRAS_BEBIDAS) % 2)
         
@@ -294,7 +300,8 @@ def main():
                     st.subheader(item['name'])
                     st.write(f"**:green[{item['price']}]**")
 
-        st.header("Bebidas Importados", divider="cyan")
+        # CORRECCIÓN: 'cyan' no es válido, se cambia a 'blue'
+        st.header("Bebidas Importados", divider="blue")
         cols_importadas = st.columns(2) # 2 columnas para más espacio
         split_idx = len(BEBIDAS_IMPORTADAS) // 2 + (len(BEBIDAS_IMPORTADAS) % 2)
 
@@ -311,7 +318,7 @@ def main():
 
     # --- PESTAÑA 6: DULCES ---
     with tabs[5]:
-        st.header("Dulces Importados", divider="yellow")
+        st.header("Dulces Importados", divider="yellow") # 'yellow' es válido
         cols_dulces = st.columns(2) # 2 columnas para más espacio
         split_idx = len(DULCES) // 2 + (len(DULCES) % 2)
         
@@ -328,7 +335,7 @@ def main():
 
     # --- PESTAÑA 7: PROMOS ---
     with tabs[6]:
-        st.header("Promos e Info", divider="yellow")
+        st.header("Promos e Info", divider="yellow") # 'yellow' es válido
         
         st.info("¡DULCERIA! ¡En Chingon Cocteles contamos con dulceria mexicana y oriental!", icon="🍬")
         st.success("¡SOMOS ARTE! Podrás tambien pintar mientras disfrutas de un granizado (Pintura en Ceramica + Pincel + Vinilo)", icon="🎨")
