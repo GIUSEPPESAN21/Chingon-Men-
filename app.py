@@ -2,7 +2,6 @@ import streamlit as st
 import datetime
 
 # --- 1. CONFIGURACIÓN DE LA PÁGINA ---
-# "wide" soluciona el problema de que se vea "estrecho"
 st.set_page_config(
     page_title="Chingon Cocteles",
     page_icon="💀",
@@ -139,7 +138,7 @@ def inyectar_css_personalizado():
     Inyecta CSS para hacer la letra más grande y el diseño más atractivo,
     manteniendo la estructura nativa de Streamlit.
     """
-    st.markdown("""
+    st.markdown(f"""
     <style>
     /* 1. Carga de Fuentes (¡Para el look "Chingon"!) */
     @import url('https://fonts.googleapis.com/css2?family=Bungee&family=Teko:wght@400;600&display=swap');
@@ -147,61 +146,75 @@ def inyectar_css_personalizado():
     /* 2. Aplicar Fuentes y Letra Más Grande */
     
     /* Headers de Sección (ej. "Granizados") */
-    h1[data-testid="stHeader"] {
+    h1[data-testid="stHeader"] {{
         font-family: 'Bungee', cursive !important;
         font-size: 2.75rem !important;
-    }
+    }}
     
     /* Títulos de Pestañas */
-    button[data-baseweb="tab"] {
+    button[data-baseweb="tab"] {{
         font-family: 'Bungee', cursive !important;
         font-size: 1.1rem !important; /* Letra más grande en pestañas */
-    }
+    }}
 
     /* Títulos de Platos (ej. "NO MAMES") */
-    h2[data-testid="stSubheader"] {
+    h2[data-testid="stSubheader"] {{
         font-family: 'Teko', sans-serif !important;
         font-size: 2.25rem !important; /* Letra MUCHO más grande */
         color: #FFFFFF !important;
         margin-bottom: -10px !important; /* Ajuste de espacio */
-    }
+    }}
 
     /* Descripciones (ej. "Jagermeister y Redbull...") */
-    p[data-testid="stCaption"] {
+    p[data-testid="stCaption"] {{
         font-family: 'Teko', sans-serif !important;
         font-size: 1.15rem !important; /* Letra más grande */
         color: #d1d5db !important;
-    }
+    }}
 
     /* Precios (ej. "$14.000") */
-    p, p strong, p span[style*="color: rgb(0, 128, 0)"] {
+    p, p strong, p span[style*="color: rgb(0, 128, 0)"] {{
         font-family: 'Teko', sans-serif !important;
         font-size: 1.25rem !important; /* Letra más grande */
         font-weight: 800 !important;
-    }
+    }}
 
     /* 3. Diseño Atractivo (Fondo de cajas) */
     
     /* Contenedores de Platos (border=True) */
-    div[data-testid="stVerticalBlockBorderWrapper"] {
+    div[data-testid="stVerticalBlockBorderWrapper"] {{
         background-color: #111827; /* Fondo oscuro de las cajas */
-        border-color: #374151;
+        border: 2px solid #ec4899; /* Borde Neón Rosa PERMANENTE */
+        box-shadow: 0 0 10px #ec4899, 0 0 5px #ec4899 inset; /* Efecto Neón */
         border-radius: 0.75rem; /* Más redondeado */
         transition: all 0.3s ease;
-    }
+    }}
     
-    div[data-testid="stVerticalBlockBorderWrapper"]:hover {
-        border-color: #ec4899; /* Efecto Neón Rosa al pasar el mouse */
-    }
+    /* 4. Footer SAVA (Más pequeño) */
+    .sava-footer {{
+        display: flex;
+        align-items: center;
+        gap: 15px; /* Espacio entre logo y texto */
+        opacity: 0.7; /* Menos prominente */
+    }}
+    .sava-footer img {{
+        width: 60px; /* Logo pequeño */
+        height: auto;
+    }}
+    .sava-footer div {{
+        font-family: 'Teko', sans-serif;
+        font-size: 0.95rem; /* Texto pequeño */
+        line-height: 1.2;
+    }}
     </style>
     """, unsafe_allow_html=True)
 
 
 def render_native_header():
     """Dibuja el logo principal centrado"""
-    _, col_img, _ = st.columns([1, 1, 1])
+    # --- CAMBIO AQUÍ: Columnas [1.5, 1, 1.5] para hacer el logo más pequeño ---
+    _, col_img, _ = st.columns([1.5, 1, 1.5])
     with col_img:
-        # CORRECCIÓN: 'use_column_width' está obsoleto, se usa 'use_container_width'
         st.image(LOGO_URL, use_container_width=True)
 
 def render_native_footer():
@@ -219,16 +232,17 @@ def render_native_footer():
     
     st.divider()
     
-    with st.container(border=True):
-        st.subheader("Desarrollado Por")
-        cols_sava = st.columns([1, 3])
-        with cols_sava[0]:
-            st.image(SAVA_LOGO_URL)
-        with cols_sava[1]:
-            st.write("#### Joseph Javier Sánchez Acuña")
-            st.caption("CEO - SAVA SOFTWARE FOR ENGINEERING")
-            # --- CAMBIO AQUÍ: st.write A st.caption para hacerlo más pequeño ---
-            st.caption("Líder visionario con una profunda experiencia en inteligencia artificial y desarrollo de software. Joseph es el cerebro detrás de la arquitectura de OSIRIS, impulsando la innovación y asegurando que nuestra tecnología se mantenga a la vanguardia.")
+    # --- CAMBIO AQUÍ: Footer de SAVA mucho más pequeño y discreto ---
+    st.markdown(f"""
+    <div class="sava-footer">
+        <img src="{SAVA_LOGO_URL}" alt="SAVA Logo">
+        <div>
+            <strong>Desarrollado por:</strong><br>
+            Joseph Javier Sánchez Acuña<br>
+            <small>CEO - SAVA SOFTWARE FOR ENGINEERING</small>
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
             
     current_year = datetime.date.today().year
     st.caption(f"© {current_year} Chingon Cocteles. Todos los derechos reservados.")
@@ -257,7 +271,7 @@ def main():
 
     # --- PESTAÑA 1: GRANIZADOS ---
     with tabs[0]:
-        st.header("Granizados", divider="green") # 'green' es válido
+        st.header("⚡ Granizados ⚡", divider="green")
         cols_granizados = st.columns(2)
         for i, item in enumerate(GRANIZADOS_PRINCIPALES):
             with cols_granizados[i % 2]:
@@ -267,17 +281,16 @@ def main():
                     for p_label, p_price in PRECIOS_GRANIZADOS:
                         st.write(f"{p_label}: **:green[{p_price}]**")
         
-        # CORRECCIÓN: 'cyan' no es válido, se cambia a 'blue'
-        st.header("Granizados Cremosos", divider="blue")
+        st.header("⚡ Granizados Cremosos ⚡", divider="blue")
         cols_cremosos = st.columns(2)
         for i, item in enumerate(GRANIZADOS_CREMOSOS):
             with cols_cremosos[i % 2]:
                 with st.container(border=True):
                     st.subheader(item['name'])
+                    # --- CORRECCIÓN AQUÍ: Sin label, sin dos puntos ---
                     st.write(f"**:green[{item['price']}]**")
                     
-        # CORRECCIÓN: 'cyan' no es válido, se cambia a 'blue'
-        st.header("Extras y Sin Alcohol", divider="blue")
+        st.header("⚡ Extras y Sin Alcohol ⚡", divider="blue")
         cols_extras = st.columns(2)
         for i, item in enumerate(EXTRAS_SIN_ALCOHOL):
             with cols_extras[i % 2]:
@@ -288,13 +301,17 @@ def main():
                     
                     if item["type"] == "card":
                         for p_label, p_price in item['prices']:
-                            st.write(f"{p_label}: **:green[{p_price}]**")
+                            # --- CORRECCIÓN AQUÍ: Lógica para evitar ':' si el label está vacío ---
+                            if p_label:
+                                st.write(f"{p_label}: **:green[{p_price}]**")
+                            else:
+                                st.write(f"**:green[{p_price}]**")
                     elif item["type"] == "simple":
                         st.write(f"**:green[{item['price']}]**")
 
     # --- PESTAÑA 2: PA' PICAR / COMPARTIR ---
     with tabs[1]:
-        st.header("Pa' Picar", divider="green") # 'green' es válido
+        st.header("🔥 Pa' Picar 🔥", divider="green")
         cols_picar = st.columns(2)
         for i, item in enumerate(PA_PICAR):
             with cols_picar[i % 2]:
@@ -303,8 +320,7 @@ def main():
                     st.caption(item['desc'])
                     st.write(f"**:green[{item['price']}]**")
 
-        # CORRECCIÓN: 'cyan' no es válido, se cambia a 'blue'
-        st.header("Pa' Compartir", divider="blue")
+        st.header("🔥 Pa' Compartir 🔥", divider="blue")
         cols_compartir = st.columns(2)
         for i, item in enumerate(PA_COMPARTIR):
             with cols_compartir[i % 2]:
@@ -313,12 +329,15 @@ def main():
                     if item.get('desc'):
                         st.caption(item['desc'])
                     for p_label, p_price in item['prices']:
-                        st.write(f"{p_label}: **:green[{p_price}]**")
+                        # --- CORRECCIÓN AQUÍ: Lógica para evitar ':' si el label está vacío ---
+                        if p_label:
+                            st.write(f"{p_label}: **:green[{p_price}]**")
+                        else:
+                            st.write(f"**:green[{p_price}]**")
 
     # --- PESTAÑA 3: COCTELES Y MICHELADAS ---
     with tabs[2]:
-        # CORRECCIÓN: 'pink' no es válido, se cambia a 'violet'
-        st.header("Cocteles", divider="violet")
+        st.header("🍹 Cocteles 🍹", divider="violet")
         cols_cocteles = st.columns(2)
         for i, item in enumerate(COCTELES):
             with cols_cocteles[i % 2]:
@@ -328,9 +347,8 @@ def main():
                         st.caption(item['desc'])
                     st.write(f"**:green[{item['price']}]**")
 
-        # CORRECCIÓN: 'pink' no es válido, se cambia a 'violet'
-        st.header("Micheladas y Mas", divider="violet")
-        cols_micheladas = st.columns(2) # 2 columnas para más espacio
+        st.header("🍹 Micheladas y Mas 🍹", divider="violet")
+        cols_micheladas = st.columns(2) 
         for i, item in enumerate(MICHELADAS):
             with cols_micheladas[i % 2]:
                 with st.container(border=True):
@@ -341,8 +359,8 @@ def main():
 
     # --- PESTAÑA 4: RAMEN ---
     with tabs[3]:
-        st.header("Ramen", divider="yellow") # 'yellow' es válido
-        cols_ramen = st.columns(2) # 2 columnas para más espacio
+        st.header("🍜 Ramen 🍜", divider="yellow")
+        cols_ramen = st.columns(2)
         for i, item in enumerate(RAMEN_LIST):
             with cols_ramen[i % 2]:
                 with st.container(border=True):
@@ -353,8 +371,8 @@ def main():
 
     # --- PESTAÑA 5: BEBIDAS ---
     with tabs[4]:
-        st.header("Otras Bebidas", divider="yellow") # 'yellow' es válido
-        cols_bebidas = st.columns(2) # 2 columnas para más espacio
+        st.header("🥤 Otras Bebidas 🥤", divider="yellow")
+        cols_bebidas = st.columns(2) 
         split_idx = len(OTRAS_BEBIDAS) // 2 + (len(OTRAS_BEBIDAS) % 2)
         
         with cols_bebidas[0]:
@@ -368,9 +386,8 @@ def main():
                     st.subheader(item['name'])
                     st.write(f"**:green[{item['price']}]**")
 
-        # CORRECCIÓN: 'cyan' no es válido, se cambia a 'blue'
-        st.header("Bebidas Importados", divider="blue")
-        cols_importadas = st.columns(2) # 2 columnas para más espacio
+        st.header("🥤 Bebidas Importados 🥤", divider="blue")
+        cols_importadas = st.columns(2)
         split_idx = len(BEBIDAS_IMPORTADAS) // 2 + (len(BEBIDAS_IMPORTADAS) % 2)
 
         with cols_importadas[0]:
@@ -386,8 +403,8 @@ def main():
 
     # --- PESTAÑA 6: DULCES ---
     with tabs[5]:
-        st.header("Dulces Importados", divider="yellow") # 'yellow' es válido
-        cols_dulces = st.columns(2) # 2 columnas para más espacio
+        st.header("🍬 Dulces Importados 🍬", divider="yellow")
+        cols_dulces = st.columns(2)
         split_idx = len(DULCES) // 2 + (len(DULCES) % 2)
         
         with cols_dulces[0]:
@@ -403,7 +420,7 @@ def main():
 
     # --- PESTAÑA 7: PROMOS ---
     with tabs[6]:
-        st.header("Promos e Info", divider="yellow") # 'yellow' es válido
+        st.header("🎉 Promos e Info 🎉", divider="yellow")
         
         st.info("¡DULCERIA! ¡En Chingon Cocteles contamos con dulceria mexicana y oriental!", icon="🍬")
         st.success("¡SOMOS ARTE! Podrás tambien pintar mientras disfrutas de un granizado (Pintura en Ceramica + Pincel + Vinilo)", icon="🎨")
