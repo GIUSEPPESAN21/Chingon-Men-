@@ -175,6 +175,10 @@ body {
 st.markdown(CUSTOM_CSS, unsafe_allow_html=True)
 
 # --- DATOS DEL MENÚ (Funciones Helper) ---
+#
+# ¡¡¡CORRECCIÓN APLICADA AQUÍ!!!
+# Ahora el st.markdown está DENTRO de la función.
+#
 
 def format_item(name, desc, prices):
     """Formatea un item con descripción y múltiples precios."""
@@ -186,17 +190,18 @@ def format_item(name, desc, prices):
             <span class="neon-green-text">{price}</span>
         </div>
         """
-    return f"""
+    html = f"""
     <div class="menu-item-box">
         <h3>{name}</h3>
         <p>{desc}</p>
         {prices_html}
     </div>
     """
+    st.markdown(html, unsafe_allow_html=True)
 
 def format_item_simple(name, price):
     """Formatea un item con solo nombre y precio (para cremosos, etc.)."""
-    return f"""
+    html = f"""
     <div class="menu-item-box">
         <div class="price-item">
             <h3>{name}</h3>
@@ -204,11 +209,12 @@ def format_item_simple(name, price):
         </div>
     </div>
     """
+    st.markdown(html, unsafe_allow_html=True)
     
 def format_item_list(name, price, note=""):
     """Formatea un item para lista simple (Ramen, Bebidas)."""
     note_html = f"<p>{note}</p>" if note else ""
-    return f"""
+    html = f"""
     <div class="menu-item-list">
         <div style="display: flex; align-items: center;">
             <h3>{name}</h3>
@@ -217,6 +223,7 @@ def format_item_list(name, price, note=""):
         <span class="neon-green-text">{price}</span>
     </div>
     """
+    st.markdown(html, unsafe_allow_html=True)
 
 # --- INICIO DE LA APP ---
 
@@ -268,7 +275,8 @@ with tab_granizados:
     cols = st.columns(2)
     for i, item in enumerate(granizados_principales):
         with cols[i % 2]:
-            st.markdown(format_item(item["name"], item["desc"], precios_granizados), unsafe_allow_html=True)
+            # CORRECCIÓN: st.markdown() ya no es necesario aquí
+            format_item(item["name"], item["desc"], precios_granizados)
     
     st.markdown("<h3 class='font-bungee neon-cyan-text' style='text-align: center; margin-top: 2rem;'>Granizados Cremosos</h3>", unsafe_allow_html=True)
     
@@ -283,19 +291,22 @@ with tab_granizados:
     cols = st.columns(2)
     for i, item in enumerate(granizados_cremosos):
         with cols[i % 2]:
-            st.markdown(format_item_simple(item["name"], item["price"]), unsafe_allow_html=True)
+            # CORRECCIÓN: st.markdown() ya no es necesario aquí
+            format_item_simple(item["name"], item["price"])
             
     st.markdown("<h3 class='font-bungee neon-cyan-text' style='text-align: center; margin-top: 2rem;'>Extras y Sin Alcohol</h3>", unsafe_allow_html=True)
     
     cols = st.columns(2)
     with cols[0]:
-        st.markdown(format_item("GRANIZADO SIN ALCOHOL", "Preguntar Disponibilidad", [("", "$14.000")]), unsafe_allow_html=True)
-        st.markdown(format_item_simple("SHOTS MOLECULAR", "$3.000"), unsafe_allow_html=True)
-        st.markdown(format_item_simple("BOTELLA AGUARDIENTE", "$70.000"), unsafe_allow_html=True)
+        # CORRECCIÓN: st.markdown() ya no es necesario aquí
+        format_item("GRANIZADO SIN ALCOHOL", "Preguntar Disponibilidad", [("", "$14.000")])
+        format_item_simple("SHOTS MOLECULAR", "$3.000")
+        format_item_simple("BOTELLA AGUARDIENTE", "$70.000")
     with cols[1]:
-        st.markdown(format_item("JERINGAS DE VENENO", "", [("Pequeña", "$3.000"), ("Grande", "$5.000")]), unsafe_allow_html=True)
-        st.markdown(format_item_simple("CANECA AGUARDIENTE", "$40.000"), unsafe_allow_html=True)
-        st.markdown(format_item("GOMAS ENCHILADAS", "", [("Tamaño S", "$10.000"), ("Tamaño M", "$15.000"), ("Tamaño L", "$19.000")]), unsafe_allow_html=True)
+        # CORRECCIÓN: st.markdown() ya no es necesario aquí
+        format_item("JERINGAS DE VENENO", "", [("Pequeña", "$3.000"), ("Grande", "$5.000")])
+        format_item_simple("CANECA AGUARDIENTE", "$40.000")
+        format_item("GOMAS ENCHILADAS", "", [("Tamaño S", "$10.000"), ("Tamaño M", "$15.000"), ("Tamaño L", "$19.000")])
 
 # --- PESTAÑA 2: PA' PICAR / COMPARTIR ---
 with tab_compartir:
@@ -305,22 +316,27 @@ with tab_compartir:
     
     cols = st.columns(2)
     with cols[0]:
-        st.markdown(format_item("ALITAS", "5 Alitas, Porcion De Papas, Jugo Hit En Caja", [("", "$16.000")]), unsafe_allow_html=True)
+        # CORRECCIÓN: st.markdown() ya no es necesario aquí
+        format_item("ALITAS", "5 Alitas, Porcion De Papas, Jugo Hit En Caja", [("", "$16.000")])
     with cols[1]:
-        st.markdown(format_item("NUGGETS", "8 Nuggets, Porcion De Papas, Jugo Hit En Caja", [("", "$16.000")]), unsafe_allow_html=True)
-    st.markdown(format_item("SALCHIPAPA", "Porción De Papa, Salchicha, Salsas Al Gusto, Queso Derretido y 2 Jugos Hit", [("", "$16.000")]), unsafe_allow_html=True)
+        # CORRECCIÓN: st.markdown() ya no es necesario aquí
+        format_item("NUGGETS", "8 Nuggets, Porcion De Papas, Jugo Hit En Caja", [("", "$16.000")])
+    # CORRECCIÓN: st.markdown() ya no es necesario aquí
+    format_item("SALCHIPAPA", "Porción De Papa, Salchicha, Salsas Al Gusto, Queso Derretido y 2 Jugos Hit", [("", "$16.000")])
     
     st.markdown("<h3 class='font-bungee neon-cyan-text' style='text-align: center; margin-top: 2rem;'>Pa' Compartir</h3>", unsafe_allow_html=True)
     
     cols = st.columns(2)
     with cols[0]:
-        st.markdown(format_item("NEVECON DE CHELA", "", [("Pequeño (3 a 4 Personas)", "$45.000"), ("Grande (7 a 8 Personas)", "$70.000")]), unsafe_allow_html=True)
-        st.markdown(format_item_simple("NEVECON CHINGON GRANDE", "$90.000"), unsafe_allow_html=True)
-        st.markdown(format_item("LA PECERA", "Granizado Azul, Fresa, Naranja, Gomitas, Perlas Explosivas y Cerveza Coronita (2 a 4 Personas)", [("", "$50.000")]), unsafe_allow_html=True)
+        # CORRECCIÓN: st.markdown() ya no es necesario aquí
+        format_item("NEVECON DE CHELA", "", [("Pequeño (3 a 4 Personas)", "$45.000"), ("Grande (7 a 8 Personas)", "$70.000")])
+        format_item_simple("NEVECON CHINGON GRANDE", "$90.000")
+        format_item("LA PECERA", "Granizado Azul, Fresa, Naranja, Gomitas, Perlas Explosivas y Cerveza Coronita (2 a 4 Personas)", [("", "$50.000")])
     with cols[1]:
-        st.markdown(format_item_simple("NEVECON CHINGON", "$60.000"), unsafe_allow_html=True)
-        st.markdown(format_item("NEVECON PUPPY", "Granizado Con Gomitas Rojas o Varias Presentaciones, Perlas Explosivas, Bombombum y 2 JP", [("", "$100.000")]), unsafe_allow_html=True)
-        st.markdown(format_item("CUATAZO", "Bebida Michelada con Tajín Gomitas bañadas en Chamoy, Tajín y Manzana verde (Mamoncillo) o Guayaba Manzana", [("", "$24.000")]), unsafe_allow_html=True)
+        # CORRECCIÓN: st.markdown() ya no es necesario aquí
+        format_item_simple("NEVECON CHINGON", "$60.000")
+        format_item("NEVECON PUPPY", "Granizado Con Gomitas Rojas o Varias Presentaciones, Perlas Explosivas, Bombombum y 2 JP", [("", "$100.000")])
+        format_item("CUATAZO", "Bebida Michelada con Tajín Gomitas bañadas en Chamoy, Tajín y Manzana verde (Mamoncillo) o Guayaba Manzana", [("", "$24.000")])
 
 # --- PESTAÑA 3: COCTELES Y MICHELADAS ---
 with tab_cocteles:
@@ -330,10 +346,13 @@ with tab_cocteles:
     
     cols = st.columns(2)
     with cols[0]:
-        st.markdown(format_item("EXPLOSION DE FRESAS", "Smirnoff Con Fresas y Leche Condensada", [("", "$25.000")]), unsafe_allow_html=True)
+        # CORRECCIÓN: st.markdown() ya no es necesario aquí
+        format_item("EXPLOSION DE FRESAS", "Smirnoff Con Fresas y Leche Condensada", [("", "$25.000")])
     with cols[1]:
-        st.markdown(format_item("CHINGON", "Tequila, Limon, Sirope Cosmico, etc. Servido En Botella Exclusiva Con Gajos De Limon (2 Personas)", [("", "$50.000")]), unsafe_allow_html=True)
-    st.markdown(format_item_simple("MARGARITA", "$20.000"), unsafe_allow_html=True)
+        # CORRECCIÓN: st.markdown() ya no es necesario aquí
+        format_item("CHINGON", "Tequila, Limon, Sirope Cosmico, etc. Servido En Botella Exclusiva Con Gajos De Limon (2 Personas)", [("", "$50.000")])
+    # CORRECCIÓN: st.markdown() ya no es necesario aquí
+    format_item_simple("MARGARITA", "$20.000")
     
     st.markdown("<h3 class='font-bungee neon-cyan-text' style='text-align: center; margin-top: 2rem;'>Micheladas y Mas</h3>", unsafe_allow_html=True)
 
@@ -353,7 +372,8 @@ with tab_cocteles:
     cols = st.columns(2)
     for i, item in enumerate(micheladas):
         with cols[i % 2]:
-            st.markdown(format_item(item["name"], item["desc"], [("", item["price"])]), unsafe_allow_html=True)
+            # CORRECCIÓN: st.markdown() ya no es necesario aquí
+            format_item(item["name"], item["desc"], [("", item["price"])])
 
 # --- PESTAÑA 4: RAMEN ---
 with tab_ramen:
@@ -375,7 +395,8 @@ with tab_ramen:
     
     st.markdown("<div class='menu-item-box'>", unsafe_allow_html=True) # Contenedor oscuro
     for item in ramen_list:
-        st.markdown(format_item_list(item["name"], item["price"], item["note"]), unsafe_allow_html=True)
+        # CORRECCIÓN: st.markdown() ya no es necesario aquí
+        format_item_list(item["name"], item["price"], item["note"])
     st.markdown("</div>", unsafe_allow_html=True)
 
 
@@ -399,7 +420,8 @@ with tab_bebidas:
     cols = st.columns(3)
     for i, item in enumerate(otras_bebidas):
         with cols[i % 3]:
-            st.markdown(format_item_list(item["name"], item["price"]), unsafe_allow_html=True)
+            # CORRECCIÓN: st.markdown() ya no es necesario aquí
+            format_item_list(item["name"], item["price"])
     st.markdown("</div>", unsafe_allow_html=True)
 
     st.markdown("<h3 class='font-bungee neon-cyan-text' style='text-align: center; margin-top: 2rem;'>Bebidas Importados</h3>", unsafe_allow_html=True)
@@ -420,7 +442,8 @@ with tab_bebidas:
     cols = st.columns(3)
     for i, item in enumerate(bebidas_importadas):
         with cols[i % 3]:
-            st.markdown(format_item_list(item["name"], item["price"]), unsafe_allow_html=True)
+            # CORRECCIÓN: st.markdown() ya no es necesario aquí
+            format_item_list(item["name"], item["price"])
     st.markdown("</div>", unsafe_allow_html=True)
 
 # --- PESTAÑA 6: DULCES ---
@@ -448,7 +471,8 @@ with tab_dulces:
     cols = st.columns(3)
     for i, item in enumerate(dulces):
         with cols[i % 3]:
-            st.markdown(format_item_list(item["name"], item["price"]), unsafe_allow_html=True)
+            # CORRECCIÓN: st.markdown() ya no es necesario aquí
+            format_item_list(item["name"], item["price"])
     st.markdown("</div>", unsafe_allow_html=True)
 
 # --- PESTAÑA 7: PROMOS ---
@@ -499,8 +523,7 @@ st.markdown("""
 </footer>
 """, unsafe_allow_html=True)
 
-# Sección SAVA (¡ARREGLADO!)
-# Usamos un f-string para evitar el KeyError con las llaves de CSS
+# Sección SAVA (Arreglado el KeyError)
 sava_html = f"""
 <div class="menu-item-box" style="margin-top: 2rem;">
     <h3 class="font-bungee neon-cyan-text" style="text-align: center; font-size: 1.5rem; margin-bottom: 1.5rem;">Desarrollado Por</h3>
