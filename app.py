@@ -5,26 +5,33 @@ import datetime
 st.set_page_config(
     page_title="Chingon Cocteles",
     page_icon="💀",
-    layout="centered" # Usamos 'centered' que se parece más al max-w-3xl del HTML
+    layout="centered",
+    initial_sidebar_state="collapsed"
 )
 
 # --- URLs DE LOGOS ---
 LOGO_URL = "https://github.com/GIUSEPPESAN21/Chingon-Logo/blob/main/Captura%20de%20pantalla%202025-10-20%20080734.png?raw=true"
 SAVA_LOGO_URL = "https://github.com/GIUSEPPESAN21/LOGO-SAVA/blob/main/logo_sava.png?raw=true"
 
-# --- CSS PERSONALIZADO (Para replicar el look neón y las fuentes) ---
-# Aquí inyectamos el CSS para las fuentes de Google y las clases de estilo
+# --- CSS PERSONALIZADO (MEJORADO) ---
 CUSTOM_CSS = """
 <style>
-/* 1. Carga de Fuentes (Bungee para títulos, Teko para texto) */
+/* 1. Carga de Fuentes */
 @import url('https://fonts.googleapis.com/css2?family=Bungee&family=Teko:wght@400;600&display=swap');
 
-/* 2. Estilos Globales */
+/* 2. Estilos Globales (MEJORA: Fondo de calavera) */
 body {
     font-family: 'Teko', sans-serif;
+    /* Imagen de fondo de la calavera de tus menús */
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text y="50" font-size="90" fill="rgba(255,255,255,0.03)" dominant-baseline="central" text-anchor="middle">💀</text></svg>');
 }
 
-/* 3. Estilos de fuentes */
+/* 3. Logo Principal (MEJORA: Sombra Neón) */
+.main-logo {
+    filter: drop-shadow(0 0 15px rgba(236, 72, 153, 0.6)); /* Sombra rosa neón */
+}
+
+/* 4. Estilos de fuentes */
 .font-bungee { 
     font-family: 'Bungee', cursive; 
 }
@@ -32,7 +39,7 @@ body {
     font-family: 'Teko', sans-serif; 
 }
 
-/* 4. Efectos Neón */
+/* 5. Efectos Neón */
 .neon-pink-text {
     color: #fce7f3;
     text-shadow: 0 0 5px #fce7f3, 0 0 10px #fce7f3, 0 0 15px #ec4899, 0 0 20px #ec4899;
@@ -50,12 +57,16 @@ body {
     text-shadow: 0 0 5px #cffafe, 0 0 10px #cffafe, 0 0 15px #06b6d4, 0 0 20px #06b6d4;
 }
 
-/* 5. Estilo de las Pestañas de Streamlit */
+/* 6. Estilo de Pestañas de Streamlit */
 [data-baseweb="tab-list"] button {
     font-family: 'Bungee', cursive !important;
     font-size: 1.1rem !important;
     color: #9ca3af !important; /* gris */
     border-bottom: 2px solid transparent !important;
+    transition: all 0.3s ease !important;
+}
+[data-baseweb="tab-list"] button:hover {
+    color: #fefce8 !important;
 }
 [data-baseweb="tab-list"] button[aria-selected="true"] {
     color: #fefce8 !important; /* amarillo */
@@ -63,7 +74,7 @@ body {
     text-shadow: 0 0 5px #eab308 !important;
 }
 
-/* 6. Estilo para los items del menú (el fondo oscuro) */
+/* 7. Estilo para los items del menú (el fondo oscuro) */
 .menu-item-box {
     background-color: #111827; /* bg-gray-900 */
     border: 1px solid #374151; /* border-gray-700 */
@@ -71,6 +82,11 @@ body {
     border-radius: 0.5rem; /* rounded-lg */
     margin-bottom: 1rem;
     height: 100%; /* Para que las columnas tengan la misma altura */
+    transition: all 0.3s ease;
+}
+.menu-item-box:hover {
+    border-color: #ec4899; /* Borde rosa al pasar el mouse */
+    box-shadow: 0 0 10px #ec4899;
 }
 
 .menu-item-box h3 {
@@ -99,27 +115,37 @@ body {
 }
 
 /* Estilo para items simples (Ramen, Bebidas, Dulces) */
-.menu-item-simple {
+.menu-item-list {
+    background-color: #111827; /* bg-gray-900 */
+    border: 1px solid #374151; /* border-gray-700 */
+    padding: 0.75rem 1.25rem;
+    border-radius: 0.5rem;
+    margin-bottom: 0.75rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding-top: 0.5rem;
-    padding-bottom: 0.5rem;
-    border-bottom: 1px solid #374151; /* border-gray-800 */
+    transition: all 0.3s ease;
 }
-.menu-item-simple h3 {
+.menu-item-list:hover {
+    border-color: #eab308; /* Borde amarillo al pasar el mouse */
+    box-shadow: 0 0 8px #eab308;
+}
+
+.menu-item-list h3 {
     font-family: 'Teko', sans-serif;
     font-size: 1.875rem; /* text-3xl */
     color: white;
+    margin: 0;
 }
-.menu-item-simple span {
+.menu-item-list span {
     font-family: 'Teko', sans-serif;
     font-size: 1.875rem; /* text-3xl */
     font-weight: 700;
 }
-.menu-item-simple p {
+.menu-item-list p {
     font-size: 1.1rem;
     color: #9ca3af; /* text-gray-400 */
+    margin: 0;
     margin-left: 10px;
 }
 
@@ -148,9 +174,8 @@ body {
 """
 st.markdown(CUSTOM_CSS, unsafe_allow_html=True)
 
-# --- DATOS DEL MENÚ (Extraídos del HTML) ---
+# --- DATOS DEL MENÚ (Funciones Helper) ---
 
-# (Helper functions para formatear)
 def format_item(name, desc, prices):
     """Formatea un item con descripción y múltiples precios."""
     prices_html = ""
@@ -184,7 +209,7 @@ def format_item_list(name, price, note=""):
     """Formatea un item para lista simple (Ramen, Bebidas)."""
     note_html = f"<p>{note}</p>" if note else ""
     return f"""
-    <div class="menu-item-simple">
+    <div class="menu-item-list">
         <div style="display: flex; align-items: center;">
             <h3>{name}</h3>
             {note_html}
@@ -198,7 +223,7 @@ def format_item_list(name, price, note=""):
 # --- Encabezado ---
 st.markdown(f"""
 <header style="text-align: center; margin-top: 2rem; margin-bottom: 2rem;">
-    <img src="{LOGO_URL}" alt="Chingon Cocteles Logo" style="width: auto; height: 12rem; margin: auto;">
+    <img src="{LOGO_URL}" alt="Chingon Cocteles Logo" class="main-logo" style="width: auto; height: 12rem; margin: auto;">
 </header>
 """, unsafe_allow_html=True)
 
@@ -348,8 +373,11 @@ with tab_ramen:
         {"name": "RAMEN NUDELS", "note": "(Incluye Bowl y Palitos Chinos)", "price": "$14.000"}
     ]
     
+    st.markdown("<div class='menu-item-box'>", unsafe_allow_html=True) # Contenedor oscuro
     for item in ramen_list:
         st.markdown(format_item_list(item["name"], item["price"], item["note"]), unsafe_allow_html=True)
+    st.markdown("</div>", unsafe_allow_html=True)
+
 
 # --- PESTAÑA 5: BEBIDAS ---
 with tab_bebidas:
@@ -367,10 +395,12 @@ with tab_bebidas:
         {"name": "SPEED MAX", "price": "$5.000"}, {"name": "ELECTROLIT", "price": "$12.000"}
     ]
     
+    st.markdown("<div class='menu-item-box'>", unsafe_allow_html=True) # Contenedor oscuro
     cols = st.columns(3)
     for i, item in enumerate(otras_bebidas):
         with cols[i % 3]:
             st.markdown(format_item_list(item["name"], item["price"]), unsafe_allow_html=True)
+    st.markdown("</div>", unsafe_allow_html=True)
 
     st.markdown("<h3 class='font-bungee neon-cyan-text' style='text-align: center; margin-top: 2rem;'>Bebidas Importados</h3>", unsafe_allow_html=True)
     
@@ -386,10 +416,12 @@ with tab_bebidas:
         {"name": "SHOT JAGERMEISTER", "price": "$18.000"}
     ]
     
+    st.markdown("<div class='menu-item-box'>", unsafe_allow_html=True) # Contenedor oscuro
     cols = st.columns(3)
     for i, item in enumerate(bebidas_importadas):
         with cols[i % 3]:
             st.markdown(format_item_list(item["name"], item["price"]), unsafe_allow_html=True)
+    st.markdown("</div>", unsafe_allow_html=True)
 
 # --- PESTAÑA 6: DULCES ---
 with tab_dulces:
@@ -412,10 +444,12 @@ with tab_dulces:
         {"name": "NUTELA", "price": "$4.000"}
     ]
     
+    st.markdown("<div class='menu-item-box'>", unsafe_allow_html=True) # Contenedor oscuro
     cols = st.columns(3)
     for i, item in enumerate(dulces):
         with cols[i % 3]:
             st.markdown(format_item_list(item["name"], item["price"]), unsafe_allow_html=True)
+    st.markdown("</div>", unsafe_allow_html=True)
 
 # --- PESTAÑA 7: PROMOS ---
 with tab_promos:
@@ -455,22 +489,23 @@ st.markdown("""
 <footer style="text-align: center; margin-top: 2rem;">
     <h3 class="font-bungee neon-pink-text" style="font-size: 1.5rem; margin-bottom: 1rem;">¡Siguenos en Nuestras Redes!</h3>
     <div style="display: flex; justify-content: center; gap: 2rem; margin-bottom: 1.5rem; font-size: 1.5rem; font-family: 'Teko';">
-        <a href="https://www.instagram.com/CHINGON_COCTELES" target="_blank" style="color: #d1d5db; text-decoration: none;">
+        <a href="https://www.instagram.com/CHINGON_COCTELES" target="_blank" style="color: #d1d5db; text-decoration: none; transition: all 0.3s ease;">
             @CHINGON_COCTELES
         </a>
-        <a href="https://www.tiktok.com/@CHINGON.CCTELES" target="_blank" style="color: #d1d5db; text-decoration: none;">
+        <a href="https://www.tiktok.com/@CHINGON.CCTELES" target="_blank" style="color: #d1d5db; text-decoration: none; transition: all 0.3s ease;">
             @CHINGON.CCTELES
         </a>
     </div>
 </footer>
 """, unsafe_allow_html=True)
 
-# Sección SAVA
-st.markdown("""
+# Sección SAVA (¡ARREGLADO!)
+# Usamos un f-string para evitar el KeyError con las llaves de CSS
+sava_html = f"""
 <div class="menu-item-box" style="margin-top: 2rem;">
     <h3 class="font-bungee neon-cyan-text" style="text-align: center; font-size: 1.5rem; margin-bottom: 1.5rem;">Desarrollado Por</h3>
-    <div style="display: flex; flex-direction: column; sm:flex-direction: row; align-items: center; text-align: center; @media (min-width: 640px) { text-align: left; }">
-        <img src="{}" alt="Logo SAVA" style="width: 8rem; height: 8rem; margin-bottom: 1rem; sm:margin-bottom: 0; sm:margin-right: 1.5rem;">
+    <div style="display: flex; flex-direction: column; align-items: center; text-align: center;">
+        <img src="{SAVA_LOGO_URL}" alt="Logo SAVA" style="width: 8rem; height: 8rem; margin-bottom: 1rem;">
         <div>
             <h4 class="font-bungee" style="font-size: 1.5rem; color: white;">Joseph Javier Sánchez Acuña</h4>
             <p class="neon-cyan-text" style="font-size: 1.25rem; font-weight: 600; margin-bottom: 0.5rem;">CEO - SAVA SOFTWARE FOR ENGINEERING</p>
@@ -480,7 +515,9 @@ st.markdown("""
         </div>
     </div>
 </div>
-""".format(SAVA_LOGO_URL), unsafe_allow_html=True)
+"""
+st.markdown(sava_html, unsafe_allow_html=True)
+
 
 # Copyright
 current_year = datetime.date.today().year
@@ -489,3 +526,4 @@ st.markdown(f"""
     &copy; {current_year} Chingon Cocteles. Todos los derechos reservados.
 </p>
 """, unsafe_allow_html=True)
+
