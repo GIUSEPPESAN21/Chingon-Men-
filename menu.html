@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chingon Cocteles - Menú Digital</title>
+    <!-- 1. Carga de Tailwind CSS --><script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- 2. Carga de Fuentes (Bungee para títulos, Teko para texto) --><link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Teko:wght@400;600&display=swap" rel="stylesheet">
+
+    <!-- 3. Estilos Personalizados (Tema Neón) --><style>
+        body {
+            font-family: 'Teko', sans-serif;
+            background-color: #000000;
+            color: #ffffff;
+            /* Imagen de fondo de la calavera de tus menús */
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text y="50" font-size="90" fill="rgba(255,255,255,0.03)" dominant-baseline="central" text-anchor="middle">💀</text></svg>');
+        }
+
+        /* Estilos de fuentes */
+        .font-bungee { font-family: 'Bungee', cursive; }
+        .font-teko { font-family: 'Teko', sans-serif; }
+
+        /* Efectos Neón MEJORADOS */
+        .neon-pink-text {
+            color: #fce7f3;
+            text-shadow: 0 0 8px #fce7f3, 0 0 15px #fce7f3, 0 0 25px #ec4899, 0 0 35px #ec4899;
+        }
+        .neon-green-text {
+            color: #dcfce7;
+            text-shadow: 0 0 8px #dcfce7, 0 0 15px #dcfce7, 0 0 25px #22c55e, 0 0 35px #22c55e;
+        }
+        .neon-yellow-text {
+            color: #fefce8;
+            text-shadow: 0 0 8px #fefce8, 0 0 15px #fefce8, 0 0 25px #eab308, 0 0 35px #eab308;
+        }
+        .neon-cyan-text {
+            color: #cffafe;
+            text-shadow: 0 0 8px #cffafe, 0 0 15px #cffafe, 0 0 25px #06b6d4, 0 0 35px #06b6d4;
+        }
+
+        .neon-pink-border { border-color: #ec4899; box-shadow: 0 0 12px #ec4899; }
+        .neon-green-border { border-color: #22c55e; box-shadow: 0 0 12px #22c55e; }
+
+        /* Estilo de Pestañas */
+        .tab-button {
+            transition: all 0.3s ease;
+            color: #9ca3af; /* gris */
+            border-bottom: 2px solid transparent;
+            font-size: 1.25rem; /* text-xl */
+            padding-top: 0.5rem;
+            padding-bottom: 0.5rem;
+            padding-left: 0.75rem;
+            padding-right: 0.75rem;
+        }
+        .tab-button.active {
+            color: #fefce8; /* amarillo */
+            border-bottom-color: #eab308;
+            text-shadow: 0 0 8px #fefce8; /* Efecto neón en pestaña activa */
+        }
+        .tab-button:hover {
+            color: #fefce8; /* amarillo */
+            text-shadow: 0 0 5px #fefce8;
+        }
+
+        /* Contenido de Pestañas */
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+        
+        /* Animación de entrada */
+        .menu-item {
+            opacity: 0;
+            transform: translateY(15px);
+            animation: fadeIn 0.4s ease-out forwards;
+        }
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body class="bg-black">
+
+    <!-- Contenedor Principal --><div class="container mx-auto max-w-3xl p-4">
+
+        <!-- Encabezado con Logo --><header class="text-center my-6">
+            <!-- Logo de Chingon Cocteles (Ahora desde el enlace de GitHub) --><img src="https://github.com/GIUSEPPESAN21/Chingon-Logo/blob/main/Captura%20de%20pantalla%202025-10-20%20080734.png?raw=true"
+                 alt="Chingon Cocteles Logo" class="w-48 h-48 mx-auto mb-4 rounded-full neon-pink-border border-4">
+            <h1 class="font-bungee text-5xl sm:text-6xl neon-pink-text">CHINGON COCTELES</h1>
+        </header>
+
+        <!-- Pestañas de Navegación --><nav class="flex flex-wrap justify-center space-x-2 sm:space-x-6 mb-8 border-b-2 border-gray-800 pb-3">
+            <button class="tab-button font-bungee active" onclick="openTab('granizados')">Granizados</button>
+            <button class="tab-button font-bungee" onclick="openTab('compartir')">Pa' Picar/Compartir</button>
+            <button class="tab-button font-bungee" onclick="openTab('cocteles')">Cocteles y Micheladas</button>
+            <button class="tab-button font-bungee" onclick="openTab('ramen')">Ramen</button>
+            <button class="tab-button font-bungee" onclick="openTab('bebidas')">Bebidas</button>
+            <button class="tab-button font-bungee" onclick="openTab('dulces')">Dulces</button>
+            <button class="tab-button font-bungee" onclick="openTab('promos')">Promos</button>
+        </nav>
+
+        <!-- Contenido de las Pestañas --><main>
+            <!-- SECCIÓN GRANIZADOS --><section id="granizados" class="tab-content active">
+                <h2 class="font-bungee text-4xl neon-green-text text-center mb-8">Granizados</h2>
+                
+                <!-- Sub-sección: Granizados --><div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
+                    <!-- Todos los granizados ahora tienen 3 precios --><div class="menu-item bg-gray-900 p-4 rounded-lg border border-gray-700" style="animation-delay: 0.1s;">
+                        <h3 class="font-teko text-3xl font-semibold text-white">NO MAMES</h3>
+                        <p class="font-teko text-xl text-gray-400 mb-2">Jagermeister y Redbull Con Apariencia Color Caramelo</p>
+                        <div class="flex justify-between font-teko text-2xl"><span>14 Oz</span> <span class="neon-green-text font-bold">$14.000</span></div>
+                        <div class="flex justify-between font-teko text-2xl"><span>16 Oz</span> <span class="neon-green-text font-bold">$19.000</span></div>
+                        <div class="flex justify-between font-teko text-2xl"><span>24 Oz</span> <span class="neon-green-text font-bold">$24.000</span></div>
+                    </div>
+                    
+                    <div class="menu-item bg-gray-900 p-4 rounded-lg border border-gray-700" style="animation-delay: 0.2s;">
+                        <h3 class="font-teko text-3xl font-semibold text-white">SINALOA</h3>
+                        <p class="font-teko text-xl text-gray-400 mb-2">Smirnoff De Lulo Con Apariencia Color Verde Selva</p>
+                        <div class="flex justify-between font-teko text-2xl"><span>14 Oz</span> <span class="neon-green-text font-bold">$14.000</span></div>
+                        <div class="flex justify-between font-teko text-2xl"><span>16 Oz</span> <span class="neon-green-text font-bold">$19.000</span></div>
+                        <div class="flex justify-between font-teko text-2xl"><span>24 Oz</span> <span class="neon-green-text font-bold">$24.000</span></div>
+                    </div>
+                    
+                    <div class="menu-item bg-gray-900 p-4 rounded-lg border border-gray-700" style="animation-delay: 0.3s;">
+                        <h3 class="font-teko text-3xl font-semibold text-white">701</h3>
+                        <p class="font-teko text-xl text-gray-400 mb-2">Fourloko Sandia, Whisky y Tequila Con Apariencia Color Fucsia</p>
+                        <div class="flex justify-between font-teko text-2xl"><span>14 Oz</span> <span class="neon-green-text font-bold">$14.000</span></div>
+                        <div class="flex justify-between font-teko text-2xl"><span>16 Oz</span> <span class="neon-green-text font-bold">$19.000</span></div>
+                        <div class="flex justify-between font-teko text-2xl"><span>24 Oz</span> <span class="neon-green-text font-bold">$24.000</span></div>
+                    </div>
+
+                    <div class="menu-item bg-gray-900 p-4 rounded-lg border border-gray-700" style="animation-delay: 0.4s;">
+                        <h3 class="font-teko text-3xl font-semibold text-white">TEQUILAZO</h3>
+                        <p class="font-teko text-xl text-gray-400 mb-2">Tequila y Mango Maduro Con Apariencia Color Naranja</p>
+                        <div class="flex justify-between font-teko text-2xl"><span>14 Oz</span> <span class="neon-green-text font-bold">$14.000</span></div>
+                        <div class="flex justify-between font-teko text-2xl"><span>16 Oz</span> <span class="neon-green-text font-bold">$19.000</span></div>
+                        <div class="flex justify-between font-teko text-2xl"><span>24 Oz</span> <span class="neon-green-text font-bold">$24.000</span></div>
+                    </div>
+
+                    <div class="menu-item bg-gray-900 p-4 rounded-lg border border-gray-700" style="animation-delay: 0.1s;">
+                        <h3 class="font-teko text-3xl font-semibold text-white">TIJUANA</h3>
+                        <p class="font-teko text-xl text-gray-400 mb-2">Vodka y Algodón de Azúcar Con Apariencia Color Azul Baby</p>
+                        <div class="flex justify-between font-teko text-2xl"><span>14 Oz</span> <span class="neon-green-text font-bold">$14.000</span></div>
+                        <div class="flex justify-between font-teko text-2xl"><span>16 Oz</span> <span class="neon-green-text font-bold">$19.000</span></div>
+                        <div class="flex justify-between font-teko text-2xl"><span>24 Oz</span> <span class="neon-green-text font-bold">$24.000</span></div>
+                    </div>
+
+                    <div class="menu-item bg-gray-900 p-4 rounded-lg border border-gray-700" style="animation-delay: 0.2s;">
+                        <h3 class="font-teko text-3xl font-semibold text-white">DIA DE LOS MUERTOS</h3>
+                        <p class="font-teko text-xl text-gray-400 mb-2">Champagne, Granadina, Vodka, Tequila y Kola Con Apariencia Color Rojo</p>
+                        <div class="flex justify-between font-teko text-2xl"><span>14 Oz</span> <span class="neon-green-text font-bold">$14.000</span></div>
+                        <div class="flex justify-between font-teko text-2xl"><span>16 Oz</span> <span class="neon-green-text font-bold">$19.000</span></div>
+                        <div class="flex justify-between font-teko text-2xl"><span>24 Oz</span> <span class="neon-green-text font-bold">$24.000</span></div>
+                    </div>
+                    
+                    <div class="menu-item bg-gray-900 p-4 rounded-lg border border-gray-700" style="animation-delay: 0.3s;">
+                        <h3 class="font-teko text-3xl font-semibold text-white">CATRINA</h3>
+                        <p class="font-teko text-xl text-gray-400 mb-2">Vodka y Whisky Con sabor a Sandia y Fresa Apariencia Color Negro</p>
+                        <div class="flex justify-between font-teko text-2xl"><span>14 Oz</span> <span class="neon-green-text font-bold">$14.000</span></div>
+                        <div class="flex justify-between font-teko text-2xl"><span>16 Oz</span> <span class="neon-green-text font-bold">$19.000</span></div>
+                        <div class="flex justify-between font-teko text-2xl"><span>24 Oz</span> <span class="neon-green-text font-bold">$24.000</span></div>
+                    </div>
+                    
+                    <div class="menu-item bg-gray-900 p-4 rounded-lg border border-gray-700" style="animation-delay: 0.4s;">
+                        <h3 class="font-teko text-3xl font-semibold text-white">BELICO</h3>
+                        <p class="font-teko text-xl text-gray-400 mb-2">Fourloko Sabor a Limón, Lima, Naranja, Frambuesa, Notas De Banano y Melocotón Con Apariencia y Brillo Color Azul</p>
+                        <div class="flex justify-between font-teko text-2xl"><span>14 Oz</span> <span class="neon-green-text font-bold">$14.000</span></div>
+                        <div class="flex justify-between font-teko text-2xl"><span>16 Oz</span> <span class="neon-green-text font-bold">$19.000</span></div>
+                        <div class="flex justify-between font-teko text-2xl"><span>24 Oz</span> <span class="neon-green-text font-bold">$24.000</span></div>
+                    </div>
+                    
+                    <div class="menu-item bg-gray-900 p-4 rounded-lg border border-gray-700" style="animation-delay: 0.5s;">
+                        <h3 class="font-teko text-3xl font-semibold text-white">CHUPETA</h3>
+                        <p class="font-teko text-xl text-gray-400 mb-2">Whisky y Fresa Con Apariencia Color Rojo Imperial</p>
+                        <div class="flex justify-between font-teko text-2xl"><span>14 Oz</span> <span class="neon-green-text font-bold">$14.000</span></div>
+                        <div class="flex justify-between font-teko text-2xl"><span>16 Oz</span> <span class="neon-green-text font-bold">$19.000</span></div>
+                        <div class="flex justify-between font-teko text-2xl"><span>24 Oz</span> <span class="neon-green-text font-bold">$24.000</span></div>
+                    </div>
+
+                    <!-- Todos los demás granizados de $14.000 (ahora con 3 tamaños) --><div class="menu-item bg-gray-900 p-4 rounded-lg border border-gray-700" style="animation-delay: 0.1s;">
+                        <h3 class="font-teko text-3xl font-semibold text-white">WEY</h3>
+                        <p class="font-teko text-xl text-gray-400 mb-2">Mezcla Lista Para Granizar Con Sabor A Maracuyá y Lulo Con Viche, Tequila Apariencia Color Amarillo Naranja</p>
+                        <div class="flex justify-between font-teko text-2xl"><span>14 Oz</span> <span class="neon-green-text font-bold">$14.000</span></div>
+                        <div class="flex justify-between font-teko text-2xl"><span>16 Oz</span> <span class="neon-green-text font-bold">$19.000</span></div>
+                        <div class="flex justify-between font-teko text-2xl"><span>24 Oz</span> <span class="neon-green-text font-bold">$24.000</span></div>
+                    </div>
+                    <div class="menu-item bg-gray-900 p-4 rounded-lg border border-gray-700" style="animation-delay: 0.2s;">
+                        <h3 class="font-teko text-3xl font-semibold text-white">CHIDO</h3>
+                        <p class="font-teko text-xl text-gray-400 mb-2">Cachaza, Maracuyá y Mago Maduro Con Apariencia Color Amarillo</p>
+                        <div class="flex justify-between font-teko text-2xl"><span>14 Oz</span> <span class="neon-green-text font-bold">$14.000</span></div>
+                        <div class="flex justify-between font-teko text-2xl"><span>16 Oz</span> <span class="neon-green-text font-bold">$19.000</span></div>
+                        <div class="flex justify-between font-teko text-2xl"><span>24 Oz</span> <span class="neon-green-text font-bold">$24.000</span></div>
+                    </div>
+                    <div class="menu-item bg-gray-900 p-4 rounded-lg border border-gray-700" style="animation-delay: 0.3s;">
+                        <h3 class="font-teko text-3xl font-semibold text-white">QUE PEDO?</h3>
+                        <p class="font-teko text-xl text-gray-400 mb-2">Vodka Champagne y Cereza Con Apariencia Color Rojo</p>
+                        <div class="flex justify-between font-teko text-2xl"><span>14 Oz</span> <span class="neon-green-text font-bold">$14.000</span></div>
+                        <div class="flex justify-between font-teko text-2xl"><span>16 Oz</span> <span class="neon-green-text font-bold">$19.000</span></div>
+                        <div class="flex justify-between font-teko text-2xl"><span>24 Oz</span> <span class="neon-green-text font-bold">$24.000</span></div>
+                    </div>
+                    <div class="menu-item bg-gray-900 p-4 rounded-lg border border-gray-700" style="animation-delay: 0.4s;">
+                        <h3 class="font-teko text-3xl font-semibold text-white">CARNAL</h3>
+                        <p class="font-teko text-xl text-gray-400 mb-2">Tequila y Mango Viche Con Apariencia Color Verde</p>
+                        <div class="flex justify-between font-teko text-2xl"><span>14 Oz</span> <span class="neon-green-text font-bold">$14.000</span></div>
+                        <div class="flex justify-between font-teko text-2xl"><span>16 Oz</span> <span class="neon-green-text font-bold">$19.000</span></div>
+                        <div class="flex justify-between font-teko text-2xl"><span>24 Oz</span> <span class="neon-green-text font-bold">$24.000</span></div>
+                    </div>
+                    <div class="menu-item bg-gray-900 p-4 rounded-lg border border-gray-700" style="animation-delay: 0.5s;">
+                        <h3 class="font-teko text-3xl font-semibold text-white">MORRAS</h3>
+                        <p class="font-teko text-xl text-gray-400 mb-2">Whisky, Melocotón y Sandia Con Apariencia Color Rojo Tenue</p>
+                        <div class="flex justify-between font-teko text-2xl"><span>14 Oz</span> <span class="neon-green-text font-bold">$14.000</span></div>
+                        <div class="flex justify-between font-teko text-2xl"><span>16 Oz</span> <span class="neon-green-text font-bold">$19.000</span></div>
+                        <div class="flex justify-between font-teko text-2xl"><span>24 Oz</span> <span class="neon-green-text font-bold">$24.000</span></div>
+                    </div>
+                    <div class="menu-item bg-gray-900 p-4 rounded-lg border border-gray-700" style="animation-delay: 0.6s;">
+                        <h3 class="font-teko text-3xl font-semibold text-white">NO MANCHES</h3>
+                        <p class="font-teko text-xl text-gray-400 mb-2">Ginebra y Manzana Con Apariencia Color Azul</p>
+                        <div class="flex justify-between font-teko text-2xl"><span>14 Oz</span> <span class="neon-green-text font-bold">$14.000</span></div>
+                        <div class="flex justify-between font-teko text-2xl"><span>16 Oz</span> <span class="neon-green-text font-bold">$19.000</span></div>
+                        <div class="flex justify-between font-teko text-2xl"><span>24 Oz</span> <span class="neon-green-text font-bold">$24.000</span></div>
+                    </div>
+                    <div class="menu-item bg-gray-900 p-4 rounded-lg border border-gray-700" style="animation-delay: 0.7s;">
+                        <h3 class="font-teko text-3xl font-semibold text-white">LA PEDA</h3>
+                        <p class="font-teko text-xl text-gray-400 mb-2">Whisky y Tequila Con Apariencia y Brillo Color Dorado</p>
+                        <div class="flex justify-between font-teko text-2xl"><span>14 Oz</span> <span class="neon-green-text font-bold">$14.000</span></div>
+                        <div class="flex justify-between font-teko text-2xl"><span>16 Oz</span> <span class="neon-green-text font-bold">$19.000</span></div>
+                        <div class="flex justify-between font-teko text-2xl"><span>24 Oz</span> <span class="neon-green-text font-bold">$24.000</span></div>
+                    </div>
+                    <div class="menu-item bg-gray-900 p-4 rounded-lg border border-gray-700" style="animation-delay: 0.8s;">
+                        <h3 class="font-teko text-3xl font-semibold text-white">QUE ONDA PERDIDA</h3>
+                        <p class="font-teko text-xl text-gray-400 mb-2">Whisky Con Apariencia Color Fucsia</p>
+                        <div class="flex justify-between font-teko text-2xl"><span>14 Oz</span> <span class="neon-green-text font-bold">$14.000</span></div>
+                        <div class="flex justify-between font-teko text-2xl"><span>16 Oz</span> <span class="neon-green-text font-bold">$19.000</span></div>
+                        <div class="flex justify-between font-teko text-2xl"><span>24 Oz</span> <span class="neon-green-text font-bold">$24.000</span></div>
+                    </div>
+                </div>
+
+                <!-- Sub-sección: Cremosos --><h3 class="font-bungee text-3xl neon-cyan-text text-center mb-6">Granizados Cremosos</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
+                    <!-- Items Cremosos --><div class="menu-item bg-gray-900 p-4 rounded-lg border border-gray-700" style="animation-delay: 0.1s;">
+                        <div class="flex justify-between items-center"><h3 class="font-teko text-3xl font-semibold text-white">CREMA DE COCO</h3><span class="font-teko text-3xl neon-green-text font-bold">$14.000</span></div>
+                    </div>
+                    <div class="menu-item bg-gray-900 p-4 rounded-lg border border-gray-700" style="animation-delay: 0.2s;">
+                        <div class="flex justify-between items-center"><h3 class="font-teko text-3xl font-semibold text-white">CREMA DE FRESA</h3><span class="font-teko text-3xl neon-green-text font-bold">$14.000</span></div>
+                    </div>
+                    <div class="menu-item bg-gray-900 p-4 rounded-lg border border-gray-700" style="animation-delay: 0.3s;">
+                        <div class="flex justify-between items-center"><h3 class="font-teko text-3xl font-semibold text-white">CREMA DE COFFEE</h3><span class="font-teko text-3xl neon-green-text font-bold">$14.000</span></div>
+                    </div>
+                    <div class="menu-item bg-gray-900 p-4 rounded-lg border border-gray-700" style="animation-delay: 0.4s;">
+                        <div class="flex justify-between items-center"><h3 class="font-teko text-3xl font-semibold text-white">CREMA DE BAYLEYS</h3><span class="font-teko text-3xl neon-green-text font-bold">$14.000</span></div>
+                    </div>
+                    <div class="menu-item bg-gray-900 p-4 rounded-lg border border-gray-700" style="animation-delay: 0.5s;">
+                        <div class="flex justify-between items-center"><h3 class="font-teko text-3xl font-semibold text-white">CREMA DE PIÑA</h3><span class="font-teko text-3xl neon-green-text font-bold">$14.000</span></div>
+                    </div>
+                </div>
+
+                <!-- Sub-sección: Sin Alcohol / Extras --><h3 class="font-bungee text-3xl neon-cyan-text text-center mb-6">Extras y Sin Alcohol</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="menu-item bg-gray-900 p-4 rounded-lg border border-gray-700" style="animation-delay: 0.1s;">
+                        <h3 class="font-teko text-3xl font-semibold text-white">GRANIZADO SIN ALCOHOL</h3>
+                        <p class="font-teko text-xl text-gray-400">Preguntar Disponibilidad</p>
+                        <span class="font-teko text-3xl neon-green-text font-bold">$14.000</span>
+                    </div>
+                    <div class="menu-item bg-gray-900 p-4 rounded-lg border border-gray-700" style="animation-delay: 0.2s;">
+                        <h3 class="font-teko text-3xl font-semibold text-white">JERINGAS DE VENENO</h3>
+                        <div class="flex justify-between font-teko text-2xl"><span class="text-gray-300">Pequeña</span> <span class="neon-green-text font-bold">$3.000</span></div>
+                        <div class="flex justify-between font-teko text-2xl"><span class="text-gray-300">Grande</span> <span class="neon-green-text font-bold">$5.000</span></div>
+                    </div>
+                    <div class="menu-item bg-gray-900 p-4 rounded-lg border border-gray-700" style="animation-delay: 0.3s;">
+                        <div class="flex justify-between items-center"><h3 class="font-teko text-3xl font-semibold text-white">SHOTS MOLECULAR</h3><span class="font-teko text-3xl neon-green-text font-bold">$3.000</span></div>
+                    </div>
+                    <div class="menu-item bg-gray-900 p-4 rounded-lg border border-gray-700" style="animation-delay: 0.4s;">
+                        <h3 class="font-teko text-3xl font-semibold text-white">GOMAS ENCHILADAS</h3>
+                        <div class="flex justify-between font-teko text-2xl"><span class="text-gray-300">Tamaño S</span> <span class="neon-green-text font-bold">$10.000</span></div>
+                        <div class="flex justify-between font-teko text-2xl"><span class="text-gray-300">Tamaño M</span> <span class="neon-green-text font-bold">$15.000</span></div>
+                        <div class="flex justify-between font-teko text-2xl"><span class="text-gray-300">Tamaño L</span> <span class="neon-green-text font-bold">$19.000</span></div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- SECCIÓN PA' PICAR / COMPARTIR --><section id="compartir" class="tab-content">
+                <h2 class="font-bungee text-4xl neon-green-text text-center mb-8">Pa' Picar y Compartir</h2>
+                
+                <!-- Sub-sección: Pa' Picar --><h3 class="font-bungee text-3xl neon-cyan-text text-center mb-6">Pa' Picar</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
+                    <div class="menu-item bg-gray-900 p-4 rounded-lg border border-gray-700" style="animation-delay: 0.1s;">
+                        <div class="flex justify-between items-center"><h3 class="font-teko text-3xl font-semibold text-white">ALITAS</h3><span class="font-teko text-3xl neon-green-text font-bold">$16.000</span></div>
+                        <p class="font-teko text-xl text-gray-400">5 Alitas, Porcion De Papas, Jugo Hit En Caja</p>
+                    </div>
+                    <div class="menu-item bg-gray-900 p-4 rounded-lg border border-gray-700" style="animation-delay: 0.2s;">
+                        <div class="flex justify-between items-center"><h3 class="font-teko text-3xl font-semibold text-white">NUGGETS</h3><span class="font-teko text-3xl neon-green-text font-bold">$16.000</span></div>
+                        <p class="font-teko text-xl text-gray-400">8 Nuggets, Porcion De Papas, Jugo Hit En Caja</p>
+                    </div>
+                    <div class="menu-item bg-gray-900 p-4 rounded-lg border border-gray-700 md:col-span-2" style="animation-delay: 0.3s;">
+                        <div class="flex justify-between items-center"><h3 class="font-teko text-3xl font-semibold text-white">SALCHIPAPA</h3><span class="font-teko text-3xl neon-green-text font-bold">$16.000</span></div>
+                        <p class="font-teko text-xl text-gray-400">Porción De Papa, Salchicha, Salsas Al Gusto, Queso Derretido y 2 Jugos Hit</p>
+                    </div>
+                </div>
+
+                <!-- Sub-sección: Pa' Compartir --><h3 class="font-bungee text-3xl neon-cyan-text text-center mb-6">Pa' Compartir</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="menu-item bg-gray-900 p-4 rounded-lg border border-gray-700" style="animation-delay: 0.1s;">
+                        <h3 class="font-teko text-3xl font-semibold text-white">NEVECON DE CHELA</h3>
+                        <div class="flex justify-between font-teko text-2xl"><span class="text-gray-300">Pequeño (3 a 4 Personas)</span> <span class="neon-green-text font-bold">$45.000</span></div>
+                        <div class="flex justify-between font-teko text-2xl"><span class="text-gray-300">Grande (7 a 8 Personas)</span> <span class="neon-green-text font-bold">$70.000</span></div>
+                    </div>
+                    <div class="menu-item bg-gray-900 p-4 rounded-lg border border-gray-700" style="animation-delay: 0.2s;">
+                        <div class="flex justify-between items-center"><h3 class="font-teko text-3xl font-semibold text-white">NEVECON CHINGON</h3><span class="font-teko text-3xl neon-green-text font-bold">$60.000</span></div>
+                    </div>
+                    <div class="menu-item bg-gray-900 p-4 rounded-lg border border-gray-700" style="animation-delay: 0.3s;">
+                        <div class="flex justify-between items-center"><h3 class="font-teko text-3xl font-semibold text-white">NEVECON CHINGON GRANDE</h3><span class="font-teko text-3xl neon-green-text font-bold">$90.000</span></div>
+                    </div>
+                    <div class="menu-item bg-gray-900 p-4 rounded-lg border border-gray-700" style="animation-delay: 0.4s;">
+                        <div class="flex justify-between items-center"><h3 class="font-teko text-3xl font-semibold text-white">NEVECON PUPPY</h3><span class="font-teko text-3xl neon-green-text font-bold">$100.000</span></div>
+                        <p class="font-teko text-xl text-gray-400">Granizado Con Gomitas Rojas o Varias Presentaciones, Perlas Explosivas, Bombombum y 2 JP</p>
+                    </div>
+                    <div class="menu-item bg-gray-900 p-4 rounded-lg border border-gray-700" style="animation-delay: 0.5s;">
+                        <div class="flex justify-between items-center"><h3 class="font-teko text-3xl font-semibold text-white">LA PECERA</h3><span class="font-teko text-3xl neon-green-text font-bold">$50.000</span></div>
+                        <p class="font-teko text-xl text-gray-400">Granizado Azul, Fresa, Naranja, Gomitas, Perlas Explosivas y Cerveza Coronita (2 a 4 Personas)</p>
+                    </div>
+                    <div class="menu-item bg-gray-900 p-4 rounded-lg border border-gray-700" style="animation-delay: 0.6s;">
+                        <div class="flex justify-between items-center"><h3 class="font-teko text-3xl font-semibold text-white">CUATAZO</h3><span class="font-teko text-3xl neon-green-text font-bold">$24.000</span></div>
+                        <p class="font-teko text-xl text-gray-400">Bebida Michelada con Tajín Gomitas bañadas en Chamoy, Tajín y Manzana verde (Mamoncillo) o Guayaba Manzana</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECCIÓN COCTELES Y MICHELADAS --><section id="cocteles" class="tab-content">
+                <h2 class="font-bungee text-4xl neon-pink-text text-center mb-8">Cocteles y Micheladas</h2>
+                
+                <!-- Sub-sección: Cocteles --><h3 class="font-bungee text-3xl neon-cyan-text text-center mb-6">Cocteles</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
+                    <div class="menu-item bg-gray-900 p-4 rounded-lg border border-gray-700" style="animation-delay: 0.1s;">
+                        <div class="flex justify-between items-center"><h3 class="font-teko text-3xl font-semibold text-white">EXPLOSION DE FRESAS</h3><span class="font-teko text-3xl neon-green-text font-bold">$25.000</span></div>
+                        <p class="font-teko text-xl text-gray-400">Smirnoff Con Fresas y Leche Condensada</p>
+                    </div>
+                    <div class="menu-item bg-gray-900 p-4 rounded-lg border border-gray-700" style="animation-delay: 0.2s;">
+                        <div class="flex justify-between items-center"><h3 class="font-teko text-3xl font-semibold text-white">CHINGON</h3><span class="font-teko text-3xl neon-green-text font-bold">$50.000</span></div>
+                        <p class="font-teko text-xl text-gray-400">Tequila, Limon, Sirope Cosmico, etc. Servido En Botella Exclusiva Con Gajos De Limon (2 Personas)</p>
+                    </div>
+                    <div class="menu-item bg-gray-900 p-4 rounded-lg border border-gray-700 md:col-span-2" style="animation-delay: 0.3s;">
+                        <div class="flex justify-between items-center"><h3 class="font-teko text-3xl font-semibold text-white">MARGARITA</h3><span class="font-teko text-3xl neon-green-text font-bold">$20.000</span></div>
+                    </div>
+                </div>
+
+                <!-- Sub-sección: Micheladas --><h3 class="font-bungee text-3xl neon-cyan-text text-center mb-6">Micheladas y Mas</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="menu-item bg-gray-900 p-4 rounded-lg border border-gray-700" style="animation-delay: 0.1s;">
+                        <div class="flex justify-between items-center"><h3 class="font-teko text-3xl font-semibold text-white">MICHELADA DE FRESA</h3><span class="font-teko text-3xl neon-green-text font-bold">$15.000</span></div>
+                        <p class="font-teko text-xl text-gray-400">Vaso Con Cerveza Michelado Con Sal, Fresas, Zumo de Limón y Hielo</p>
+                    </div>
+                    <div class="menu-item bg-gray-900 p-4 rounded-lg border border-gray-700" style="animation-delay: 0.2s;">
+                        <div class="flex justify-between items-center"><h3 class="font-teko text-3xl font-semibold text-white">MICHELADA ENCHILADA</h3><span class="font-teko text-3xl neon-green-text font-bold">$19.000</span></div>
+                        <p class="font-teko text-xl text-gray-400">Vaso con Cerveza Michelado Con Sal Pimienta, Mango Biche Envuelto En Tajin, Zumo de Limón, Hielo y Takis</p>
+                    </div>
+                    <div class="menu-item bg-gray-900 p-4 rounded-lg border border-gray-700" style="animation-delay: 0.3s;">
+                        <div class="flex justify-between items-center"><h3 class="font-teko text-3xl font-semibold text-white">MICHELADA DE MARACUMANGO</h3><span class="font-teko text-3xl neon-green-text font-bold">$15.000</span></div>
+                        <p class="font-teko text-xl text-gray-400">Vaso con Cerveza Michelado Con Sal, Mango Biche Envuelto, Maracuyá y Zumo de Limón y Hielo</p>
+                    </div>
+                    <div class="menu-item bg-gray-900 p-4 rounded-lg border border-gray-700" style="animation-delay: 0.4s;">
+                        <div class="flex justify-between items-center"><h3 class="font-teko text-3xl font-semibold text-white">MICHELADA SENCILLA</h3><span class="font-teko text-3xl neon-green-text font-bold">$8.000</span></div>
+                    </div>
+                    <div class="menu-item bg-gray-900 p-4 rounded-lg border border-gray-700" style="animation-delay: 0.5s;">
+                        <div class="flex justify-between items-center"><h3 class="font-teko text-3xl font-semibold text-white">MICHELADA LULI CHELA</h3><span class="font-teko text-3xl neon-green-text font-bold">$17.000</span></div>
+                        <p class="font-teko text-xl text-gray-400">Vaso con Cerveza Michelado Con Sal Pimienta, Lulo, Sirope de Lulo con Zumo de Limón, Hielo y Chocolitos</p>
+                    </div>
+                    <div class="menu-item bg-gray-900 p-4 rounded-lg border border-gray-700" style="animation-delay: 0.6s;">
+                        <div class="flex justify-between items-center"><h3 class="font-teko text-3xl font-semibold text-white">MICHELADA DE CEREZA</h3><span class="font-teko text-3xl neon-green-text font-bold">$15.000</span></div>
+                        <p class="font-teko text-xl text-gray-400">Vaso Con Cerveza Michelado Con Sal, Cereza, Zumo de Limón y Hielo</p>
+                    </div>
+                    <div class="menu-item bg-gray-900 p-4 rounded-lg border border-gray-700" style="animation-delay: 0.7s;">
+                        <div class="flex justify-between items-center"><h3 class="font-teko text-3xl font-semibold text-white">MICHELADA DE MANGO</h3><span class="font-teko text-3xl neon-green-text font-bold">$15.000</span></div>
+                        <p class="font-teko text-xl text-gray-400">Vaso Con Cerveza Michelado Con Sal, Mango, Zumo de Limón y Hielo</p>
+                    </div>
+                    <div class="menu-item bg-gray-900 p-4 rounded-lg border border-gray-700" style="animation-delay: 0.8s;">
+                        <div class="flex justify-between items-center"><h3 class="font-teko text-3xl font-semibold text-white">MICHELADA DE MARACUYA</h3><span class="font-teko text-3xl neon-green-text font-bold">$15.000</span></div>
+                        <p class="font-teko text-xl text-gray-400">Vaso Con Cerveza Michelado Con Sal, Maracuya, Zumo de Limón y Hielo</p>
+                    </div>
+                    <div class="menu-item bg-gray-900 p-4 rounded-lg border border-gray-700" style="animation-delay: 0.9s;">
+                        <div class="flex justify-between items-center"><h3 class="font-teko text-3xl font-semibold text-white">MILO OREO</h3><span class="font-teko text-3xl neon-green-text font-bold">$13.000</span></div>
+                        <p class="font-teko text-xl text-gray-400">Milo Con Crema de Chocolate, Chantilli y Galletas Oreo</p>
+                    </div>
+                    <div class="menu-item bg-gray-900 p-4 rounded-lg border border-gray-700" style="animation-delay: 1.0s;">
+                        <div class="flex justify-between items-center"><h3 class="font-teko text-3xl font-semibold text-white">MILO RAMITO</h3><span class="font-teko text-3xl neon-green-text font-bold">$13.000</span></div>
+                        <p class="font-teko text-xl text-gray-400">Milo Con Crema de Chocolate, Chantilli y Cakes de Choco ramo</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECCIÓN RAMEN --><section id="ramen" class="tab-content">
+                <h2 class="font-bungee text-4xl neon-yellow-text text-center mb-8">Ramen</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4">
+                    <!-- Lista de Ramen --><div class="menu-item flex justify-between items-center py-2 border-b border-gray-800" style="animation-delay: 0.1s;"><h3 class="font-teko text-3xl text-white">BULBACK EN BOLSA NEGRO <span class="text-gray-400 text-xl">(Incluye Bowl y Palitos Chinos)</span></h3><span class="font-teko text-3xl neon-green-text font-bold">$25.000</span></div>
+                    <div class="menu-item flex justify-between items-center py-2 border-b border-gray-800" style="animation-delay: 0.2s;"><h3 class="font-teko text-3xl text-white">BULBACK CARBONA BOLSA <span class="text-gray-400 text-xl">(Incluye Bowl y Palitos Chinos)</span></h3><span class="font-teko text-3xl neon-green-text font-bold">$27.000</span></div>
+                    <div class="menu-item flex justify-between items-center py-2 border-b border-gray-800" style="animation-delay: 0.3s;"><h3 class="font-teko text-3xl text-white">BULBACK BOLSA ROJO <span class="text-gray-400 text-xl">(Incluye Bowl y Palitos Chinos)</span></h3><span class="font-teko text-3xl neon-green-text font-bold">$26.000</span></div>
+                    <div class="menu-item flex justify-between items-center py-2 border-b border-gray-800" style="animation-delay: 0.4s;"><h3 class="font-teko text-3xl text-white">CHAPAGUETTI BOLSA <span class="text-gray-400 text-xl">(Incluye Bowl y Palitos Chinos)</span></h3><span class="font-teko text-3xl neon-green-text font-bold">$25.000</span></div>
+                    <div class="menu-item flex justify-between items-center py-2 border-b border-gray-800" style="animation-delay: 0.5s;"><h3 class="font-teko text-3xl text-white">RAMEN HELLO KITTY <span class="text-gray-400 text-xl">(Incluye Bowl y Palitos Chinos)</span></h3><span class="font-teko text-3xl neon-green-text font-bold">$28.000</span></div>
+                    <div class="menu-item flex justify-between items-center py-2 border-b border-gray-800" style="animation-delay: 0.6s;"><h3 class="font-teko text-3xl text-white">RAMEN MARUCHAN <span class="text-gray-400 text-xl">(Incluye Bowl y Palitos Chinos)</span></h3><span class="font-teko text-3xl neon-green-text font-bold">$12.000</span></div>
+                    <div class="menu-item flex justify-between items-center py-2 border-b border-gray-800" style="animation-delay: 0.7s;"><h3 class="font-teko text-3xl text-white">RAMEN NISSI <span class="text-gray-400 text-xl">(Incluye Bowl y Palitos Chinos)</span></h3><span class="font-teko text-3xl neon-green-text font-bold">$10.000</span></div>
+                    <div class="menu-item flex justify-between items-center py-2 border-b border-gray-800" style="animation-delay: 0.8s;"><h3 class="font-teko text-3xl text-white">RAMEN AJINOMEN TARRO</span></h3><span class="font-teko text-3xl neon-green-text font-bold">$12.000</span></div>
+                    <div class="menu-item flex justify-between items-center py-2 border-b border-gray-800" style="animation-delay: 0.9s;"><h3 class="font-teko text-3xl text-white">RAMEN AJINOMEN BOLSA <span class="text-gray-400 text-xl">(Incluye Bowl y Palitos Chinos)</span></h3><span class="font-teko text-3xl neon-green-text font-bold">$10.000</span></div>
+                    <div class="menu-item flex justify-between items-center py-2 border-b border-gray-800" style="animation-delay: 1.0s;"><h3 class="font-teko text-3xl text-white">RAMEN KIMCHI <span class="text-gray-400 text-xl">(Incluye Bowl y Palitos Chinos)</span></h3><span class="font-teko text-3xl neon-green-text font-bold">$17.000</span></div>
+                    <div class="menu-item flex justify-between items-center py-2 border-b border-gray-800" style="animation-delay: 1.1s;"><h3 class="font-teko text-3xl text-white">RAMEN NUDELS <span class="text-gray-400 text-xl">(Incluye Bowl y Palitos Chinos)</span></h3><span class="font-teko text-3xl neon-green-text font-bold">$14.000</span></div>
+                </div>
+            </section>
+            
+            <!-- SECCIÓN BEBIDAS --><section id="bebidas" class="tab-content">
+                <h2 class="font-bungee text-4xl neon-yellow-text text-center mb-8">Bebidas</h2>
+
+                <!-- Sub-sección: Otras Bebidas --><h3 class="font-bungee text-3xl neon-cyan-text text-center mb-6">Otras Bebidas</h3>
+                <div class="grid grid-cols-2 md:grid-cols-3 gap-x-6 gap-y-4 text-center mb-10">
+                    <div class="menu-item" style="animation-delay: 0.1s;"><h3 class="font-teko text-3xl text-white">CORONITA</h3><span class="font-teko text-3xl neon-green-text font-bold">$8.000</span></div>
+                    <div class="menu-item" style="animation-delay: 0.2s;"><h3 class="font-teko text-3xl text-white">AGUILA</h3><span class="font-teko text-3xl neon-green-text font-bold">$8.000</span></div>
+                    <div class="menu-item" style="animation-delay: 0.3s;"><h3 class="font-teko text-3xl text-white">GATORADE</h3><span class="font-teko text-3xl neon-green-text font-bold">$6.000</span></div>
+                    <div class="menu-item" style="animation-delay: 0.4s;"><h3 class="font-teko text-3xl text-white">GASEOSA</h3><span class="font-teko text-3xl neon-green-text font-bold">$4.000</span></div>
+                    <div class="menu-item" style="animation-delay: 0.5s;"><h3 class="font-teko text-3xl text-white">AGUA</h3><span class="font-teko text-3xl neon-green-text font-bold">$4.000</span></div>
+                    <div class="menu-item" style="animation-delay: 0.6s;"><h3 class="font-teko text-3xl text-white">SODAS</h3><span class="font-teko text-3xl neon-green-text font-bold">$4.000</span></div>
+                    <div class="menu-item" style="animation-delay: 0.7s;"><h3 class="font-teko text-3xl text-white">SODA ITALIANA</h3><span class="font-teko text-3xl neon-green-text font-bold">$14.000</span></div>
+                    <div class="menu-item" style="animation-delay: 0.8s;"><h3 class="font-teko text-3xl text-white">SMIRNOFF</h3><span class="font-teko text-3xl neon-green-text font-bold">$16.000</span></div>
+                    <div class="menu-item" style="animation-delay: 0.9s;"><h3 class="font-teko text-3xl text-white">FOUR LOKO</h3><span class="font-teko text-3xl neon-green-text font-bold">$24.000</span></div>
+                    <div class="menu-item" style="animation-delay: 1.0s;"><h3 class="font-teko text-3xl text-white">JP</h3><span class="font-teko text-3xl neon-green-text font-bold">$16.000</span></div>
+                    <div class="menu-item" style="animation-delay: 1.1s;"><h3 class="font-teko text-3xl text-white">CORONA</h3><span class="font-teko text-3xl neon-green-text font-bold">$12.000</span></div>
+                    <div class="menu-item" style="animation-delay: 1.2s;"><h3 class="font-teko text-3xl text-white">MONSTER</h3><span class="font-teko text-3xl neon-green-text font-bold">$14.000</span></div>
+                    <div class="menu-item" style="animation-delay: 1.3s;"><h3 class="font-teko text-3xl text-white">SPEED MAX</h3><span class="font-teko text-3xl neon-green-text font-bold">$5.000</span></div>
+                    <div class="menu-item" style="animation-delay: 1.4s;"><h3 class="font-teko text-3xl text-white">ELECTROLIT</h3><span class="font-teko text-3xl neon-green-text font-bold">$12.000</span></div>
+                </div>
+
+                <!-- Sub-sección: Bebidas Importadas --><h3 class="font-bungee text-3xl neon-cyan-text text-center mb-6">Bebidas Importados</h3>
+                <div class="grid grid-cols-2 md:grid-cols-3 gap-x-6 gap-y-4 text-center">
+                    <div class="menu-item" style="animation-delay: 0.1s;"><h3 class="font-teko text-3xl text-white">SKITTLES SOUR</h3><span class="font-teko text-3xl neon-green-text font-bold">$35.000</span></div>
+                    <div class="menu-item" style="animation-delay: 0.2s;"><h3 class="font-teko text-3xl text-white">WARHEADS LATA</h3><span class="font-teko text-3xl neon-green-text font-bold">$25.000</span></div>
+                    <div class="menu-item" style="animation-delay: 0.3s;"><h3 class="font-teko text-3xl text-white">STARBUCKS GRANDE</h3><span class="font-teko text-3xl neon-green-text font-bold">$40.000</span></div>
+                    <div class="menu-item" style="animation-delay: 0.4s;"><h3 class="font-teko text-3xl text-white">STARBUCKS PINK</h3><span class="font-teko text-3xl neon-green-text font-bold">$40.000</span></div>
+                    <div class="menu-item" style="animation-delay: 0.5s;"><h3 class="font-teko text-3xl text-white">STARBUCKS ENERGY</h3><span class="font-teko text-3xl neon-green-text font-bold">$40.000</span></div>
+                    <div class="menu-item" style="animation-delay: 0.6s;"><h3 class="font-teko text-3xl text-white">STAR BUCKS PEQUEÑO</h3><span class="font-teko text-3xl neon-green-text font-bold">$25.000</span></div>
+                    <div class="menu-item" style="animation-delay: 0.7s;"><h3 class="font-teko text-3xl text-white">DUNKIN</h3><span class="font-teko text-3xl neon-green-text font-bold">$35.000</span></div>
+                    <div class="menu-item" style="animation-delay: 0.8s;"><h3 class="font-teko text-3xl text-white">PACMAN LATA</h3><span class="font-teko text-3xl neon-green-text font-bold">$35.000</span></div>
+                    <div class="menu-item" style="animation-delay: 0.9s;"><h3 class="font-teko text-3xl text-white">MONSTER ROSADO</h3><span class="font-teko text-3xl neon-green-text font-bold">$40.000</span></div>
+                    <div class="menu-item" style="animation-delay: 1.0s;"><h3 class="font-teko text-3xl text-white">MONSTER JAVA</h3><span class="font-teko text-3xl neon-green-text font-bold">$40.000</span></div>
+                    <div class="menu-item" style="animation-delay: 1.1s;"><h3 class="font-teko text-3xl text-white">PRIME</h3><span class="font-teko text-3xl neon-green-text font-bold">$35.000</span></div>
+                    <div class="menu-item" style="animation-delay: 1.2s;"><h3 class="font-teko text-3xl text-white">ROCKSTAR</h3><span class="font-teko text-3xl neon-green-text font-bold">$35.000</span></div>
+                    <div class="menu-item" style="animation-delay: 1.3s;"><h3 class="font-teko text-3xl text-white">MTN DEW</h3><span class="font-teko text-3xl neon-green-text font-bold">$24.000</span></div>
+                    <div class="menu-item" style="animation-delay: 1.4s;"><h3 class="font-teko text-3xl text-white">COFFI LATA</h3><span class="font-teko text-3xl neon-green-text font-bold">$12.000</span></div>
+                    <div class="menu-item" style="animation-delay: 1.5s;"><h3 class="font-teko text-3xl text-white">SHOT CHIVAS</h3><span class="font-teko text-3xl neon-green-text font-bold">$24.000</span></div>
+                    <div class="menu-item" style="animation-delay: 1.6s;"><h3 class="font-teko text-3xl text-white">SHOT VODKA</h3><span class="font-teko text-3xl neon-green-text font-bold">$16.000</span></div>
+                    <div class="menu-item" style="animation-delay: 1.7s;"><h3 class="font-teko text-3xl text-white">SHOT JAGERMEISTER</h3><span class="font-teko text-3xl neon-green-text font-bold">$18.000</span></div>
+                </div>
+            </section>
+
+            <!-- SECCIÓN DULCES --><section id="dulces" class="tab-content">
+                <h2 class="font-bungee text-4xl neon-yellow-text text-center mb-8">Dulces Importados</h2>
+                <div class="grid grid-cols-2 md:grid-cols-3 gap-x-6 gap-y-4 text-center">
+                    <div class="menu-item" style="animation-delay: 0.1s;"><h3 class="font-teko text-3xl text-white">CHOCOLATINA MR BETS</h3><span class="font-teko text-3xl neon-green-text font-bold">$22.000</span></div>
+                    <div class="menu-item" style="animation-delay: 0.1s;"><h3 class="font-teko text-3xl text-white">PALITOS POCKY</h3><span class="font-teko text-3xl neon-green-text font-bold">$25.000</span></div>
+                    <div class="menu-item" style="animation-delay: 0.2s;"><h3 class="font-teko text-3xl text-white">NERDS CAJA GRANDE</h3><span class="font-teko text-3xl neon-green-text font-bold">$18.000</span></div>
+                    <div class="menu-item" style="animation-delay: 0.3s;"><h3 class="font-teko text-3xl text-white">NERDS BOLSA</h3><span class="font-teko text-3xl neon-green-text font-bold">$32.000</span></div>
+                    <div class="menu-item" style="animation-delay: 0.4s;"><h3 class="font-teko text-3xl text-white">WARHEADS SUPER SOUR SPRAY</h3><span class="font-teko text-3xl neon-green-text font-bold">$10.000</span></div>
+                    <div class="menu-item" style="animation-delay: 0.5s;"><h3 class="font-teko text-3xl text-white">JUICY DROP</h3><span class="font-teko text-3xl neon-green-text font-bold">$28.000</span></div>
+                    <div class="menu-item" style="animation-delay: 0.6s;"><h3 class="font-teko text-3xl text-white">SKITTLE BOLSA GRANDE</h3><span class="font-teko text-3xl neon-green-text font-bold">$35.000</span></div>
+                    <div class="menu-item" style="animation-delay: 0.7s;"><h3 class="font-teko text-3xl text-white">CAJA MOCHI ORIGINAL</h3><span class="font-teko text-3xl neon-green-text font-bold">$34.000</span></div>
+                    <div class="menu-item" style="animation-delay: 0.8s;"><h3 class="font-teko text-3xl text-white">PALETA VERO PINTA AZUL</h3><span class="font-teko text-3xl neon-green-text font-bold">$14.000</span></div>
+                    <div class="menu-item" style="animation-delay: 0.9s;"><h3 class="font-teko text-3xl text-white">VERO PICA FRESA</h3><span class="font-teko text-3xl neon-green-text font-bold">$2.000</span></div>
+                    <div class="menu-item" style="animation-delay: 1.0s;"><h3 class="font-teko text-3xl text-white">MARA PIÑA</h3><span class="font-teko text-3xl neon-green-text font-bold">$3.000</span></div>
+                    <div class="menu-item" style="animation-delay: 1.1s;"><h3 class="font-teko text-3xl text-white">TAKIS</h3><span class="font-teko text-3xl neon-green-text font-bold">$6.000</span></div>
+                    <div class="menu-item" style="animation-delay: 1.2s;"><h3 class="font-teko text-3xl text-white">BOBBO HAMBURGUESA</h3><span class="font-teko text-3xl neon-green-text font-bold">$15.000</span></div>
+                    <div class="menu-item" style="animation-delay: 1.3s;"><h3 class="font-teko text-3xl text-white">ICE FRUNAS</h3><span class="font-teko text-3xl neon-green-text font-bold">$5.000</span></div>
+                    <div class="menu-item" style="animation-delay: 1.4s;"><h3 class="font-teko text-3xl text-white">CHICLE EN POLVO</h3><span class="font-teko text-3xl neon-green-text font-bold">$15.000</span></div>
+                    <div class="menu-item" style="animation-delay: 1.5s;"><h3 class="font-teko text-3xl text-white">MENTOS</h3><span class="font-teko text-3xl neon-green-text font-bold">$13.000</span></div>
+                    <div class="menu-item" style="animation-delay: 1.6s;"><h3 class="font-teko text-3xl text-white">SNICKERS</h3><span class="font-teko text-3xl neon-green-text font-bold">$8.000</span></div>
+                    <div class="menu-item" style="animation-delay: 1.7s;"><h3 class="font-teko text-3xl text-white">CHICLE METRO</h3><span class="font-teko text-3xl neon-green-text font-bold">$12.000</span></div>
+                    <div class="menu-item" style="animation-delay: 1.8s;"><h3 class="font-teko text-3xl text-white">NERDS CAJITA PEQUEÑA</h3><span class="font-teko text-3xl neon-green-text font-bold">$4.000</span></div>
+                    <div class="menu-item" style="animation-delay: 1.9s;"><h3 class="font-teko text-3xl text-white">BOMBON SANDIA</h3><span class="font-teko text-3xl neon-green-text font-bold">$3.000</span></div>
+                    <div class="menu-item" style="animation-delay: 2.0s;"><h3 class="font-teko text-3xl text-white">GOMITAS COLA PERRO CALIENTE</h3><span class="font-teko text-3xl neon-green-text font-bold">$3.000</span></div>
+                    <div class="menu-item" style="animation-delay: 2.1s;"><h3 class="font-teko text-3xl text-white">BURGUER</h3><span class="font-teko text-3xl neon-green-text font-bold">$3.000</span></div>
+                    <div class="menu-item" style="animation-delay: 2.2s;"><h3 class="font-teko text-3xl text-white">GOMITA PIZZA</h3><span class="font-teko text-3xl neon-green-text font-bold">$4.000</span></div>
+                    <div class="menu-item" style="animation-delay: 2.3s;"><h3 class="font-teko text-3xl text-white">RING POP</h3><span class="font-teko text-3xl neon-green-text font-bold">$8.000</span></div>
+                    <div class="menu-item" style="animation-delay: 2.4s;"><h3 class="font-teko text-3xl text-white">M&M</h3><span class="font-teko text-3xl neon-green-text font-bold">$10.000</span></div>
+                    <div class="menu-item" style="animation-delay: 2.5s;"><h3 class="font-teko text-3xl text-white">HERSHEY</h3><span class="font-teko text-3xl neon-green-text font-bold">$10.000</span></div>
+                    <div class="menu-item" style="animation-delay: 2.6s;"><h3 class="font-teko text-3xl text-white">NUTELA</h3><span class="font-teko text-3xl neon-green-text font-bold">$4.000</span></div>
+                </div>
+            </section>
+            
+            <!-- SECCIÓN PROMOS --><section id="promos" class="tab-content">
+                <h2 class="font-bungee text-4xl neon-yellow-text text-center mb-8">Promos e Info</h2>
+                <div class="space-y-8 text-center">
+                    <div class="menu-item p-6 bg-gray-900 border-2 neon-pink-border rounded-lg" style="animation-delay: 0.1s;">
+                        <h3 class="font-bungee text-3xl neon-pink-text mb-2">¡DULCERIA!</h3>
+                        <p class="font-teko text-3xl text-white">¡En Chingon Cocteles contamos con dulceria mexicana y oriental!</p>
+                    </div>
+                    <div class="menu-item p-6 bg-gray-900 border-2 neon-green-border rounded-lg" style="animation-delay: 0.2s;">
+                        <h3 class="font-bungee text-3xl neon-green-text mb-2">¡SOMOS ARTE!</h3>
+                        <p class="font-teko text-3xl text-white">Podrás tambien pintar mientras disfrutas de un granizado</p>
+                        <p class="font-teko text-2xl text-gray-300">(Pintura en Ceramica + Pincel + Vinilo)</p>
+                    </div>
+                    <div class="menu-item p-6 bg-gray-900 border-2 neon-pink-border rounded-lg" style="animation-delay: 0.3s;">
+                        <h3 class="font-bungee text-3xl neon-pink-text mb-2">LUNES DE AMIGOS</h3>
+                        <p class="font-teko text-3xl text-white">¡Compra 2 Granizados y llevas el 3 GRATIS!</p>
+                    </div>
+                    <div class="menu-item p-6 bg-gray-900 border-2 neon-green-border rounded-lg" style="animation-delay: 0.4s;">
+                        <h3 class="font-bungee text-3xl neon-green-text mb-2">MARTES DE VENENO</h3>
+                        <p class="font-teko text-3xl text-white">¡Jeringa GRATIS para todos los granizados!</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Pie de Página --><footer class="text-center mt-12 pt-8 border-t border-gray-800">
+            <h3 class="font-bungee text-2xl neon-pink-text mb-4">¡Siguenos en Nuestras Redes!</h3>
+            <div class="flex justify-center space-x-8 mb-6">
+                <a href="https://www.instagram.com/CHINGON_COCTELES" target="_blank" class="font-teko text-2xl text-gray-300 hover:neon-pink-text transition-all">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 inline-block" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.07 1.646.07 4.85s-.012 3.584-.07 4.85c-.148 3.229-1.664 4.771-4.919 4.919-1.266.058-1.646.07-4.85.07s-3.584-.012-4.85-.07c-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.646-.07-4.85s.012-3.584.07-4.85c.149-3.225 1.664-4.767 4.919-4.919C8.416 2.175 8.796 2.163 12 2.163m0-2.163C8.74 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.74 0 12s.014 3.667.072 4.947c.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.74 24 12 24s3.667-.014 4.947-.072c4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.687.073-4.947s-.014-3.667-.072-4.947C21.727 2.69 19.302.273 14.947.072 13.667.014 13.26 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.88 1.44 1.44 0 000-2.88z"/></svg>
+                    @CHINGON_COCTELES
+                </a>
+                <a href="https://www.tiktok.com/@CHINGON.CCTELES" target="_blank" class="font-teko text-2xl text-gray-300 hover:neon-cyan-text transition-all">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 inline-block" fill="currentColor" viewBox="0 0 24 24"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-2.43.05-4.84-.6-6.6-2.31-1.76-1.71-2.59-4.2-2.6-6.65-.02-1.23-.01-2.47-.01-3.71 0-2.08 1.39-3.9 3.31-4.79 1.1-.51 2.26-.78 3.48-.83.01 2.11-.01 4.21-.01 6.32 0 1.14-.93 2.07-2.07 2.07-1.13 0-2.07-.93-2.07-2.07s.94-2.07 2.07-2.07c.88 0 1.64.55 1.96 1.34.02 1.66 0 3.32.01 4.98 0 .33.01.67.04 1 .06.39.21.76.48 1.07.79.9 2.19.98 3.14.23.68-.52 1.02-1.36 1.02-2.22 0-2.15-.01-4.3 0-6.45.04-1.25.55-2.47 1.3-3.48.69-.92 1.57-1.69 2.6-2.21V.02z"/></svg>
+                    @CHINGON.CCTELES
+                </a>
+            </div>
+            
+            <p class="text-gray-500 text-lg font-teko" id="offline-status">
+                <!-- Este mensaje se actualizará con JavaScript --></p>
+            <p class="text-gray-400 text-base font-teko mt-2">
+                &copy; <span id="year"></span> Chingon Cocteles. Todos los derechos reservados.
+            </p>
+        </footer>
+    </div>
+
+    <!-- 
+      ==================================================================
+      SCRIPT PARA PESTAÑAS Y FUNCIONALIDAD OFFLINE (SERVICE WORKER)
+      ¡No necesitas editar nada de aquí para abajo!
+      ==================================================================
+    --><script>
+        // --- Lógica de Pestañas ---
+        const tabs = document.querySelectorAll('.tab-button');
+        const contents = document.querySelectorAll('.tab-content');
+
+        function openTab(id) {
+            // Ocultar todos los contenidos
+            contents.forEach(content => {
+                content.classList.remove('active');
+            });
+            // Desactivar todos los botones
+            tabs.forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Mostrar el contenido seleccionado
+            document.getElementById(id).classList.add('active');
+            // Activar el botón seleccionado
+            document.querySelector(`.tab-button[onclick="openTab('${id}')"]`).classList.add('active');
+        }
+
+        // --- Lógica de Año ---
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // --- Lógica del Service Worker (Offline) ---
+        const swCode = `
+            const CACHE_NAME = 'chingon-cocteles-cache-v2'; // Versión actualizada del caché
+            // Archivos que guardaremos en el caché
+            const urlsToCache = [
+                '/', 
+                'menu.html', // El nombre de ESTE archivo
+                'https://cdn.tailwindcss.com',
+                'https://fonts.googleapis.com/css2?family=Bungee&family=Teko:wght@400;600&display=swap',
+                'https://fonts.gstatic.com/s/bungee/v12/N0bJ2bhS-W_D_S8QcEYoF-E.woff2', /* Bungee font files */
+                'https://fonts.gstatic.com/s/teko/v15/LYjCdG7kmBlplddYfN0.woff2', /* Teko font files */
+                'https://github.com/GIUSEPPESAN21/Chingon-Logo/blob/main/Captura%20de%20pantalla%202025-10-20%20080734.png?raw=true' // Logo de Chingon Cocteles
+            ];
+
+            // Evento 'install': Se dispara cuando el SW se instala
+            self.addEventListener('install', event => {
+                console.log('Service Worker: Instalando...');
+                event.waitUntil(
+                    caches.open(CACHE_NAME)
+                        .then(cache => {
+                            console.log('Service Worker: Abriendo caché y guardando archivos base');
+                            return cache.addAll(urlsToCache);
+                        })
+                        .then(() => {
+                            console.log('Service Worker: Instalación completada');
+                            return self.skipWaiting();
+                        })
+                        .catch(err => {
+                            console.error('Service Worker: Falló la instalación del caché', err);
+                        })
+                );
+            });
+
+            // Evento 'activate': Limpia cachés antiguos
+            self.addEventListener('activate', event => {
+                console.log('Service Worker: Activando...');
+                event.waitUntil(
+                    caches.keys().then(cacheNames => {
+                        return Promise.all(
+                            cacheNames.map(cacheName => {
+                                if (cacheName !== CACHE_NAME) {
+                                    console.log('Service Worker: Limpiando caché antiguo', cacheName);
+                                    return caches.delete(cacheName);
+                                }
+                            })
+                        );
+                    }).then(() => {
+                        return self.clients.claim();
+                    })
+                );
+            });
+
+            // Evento 'fetch': Intercepta todas las peticiones (CSS, JS, imágenes, etc.)
+            self.addEventListener('fetch', event => {
+                // Estrategia: "Cache First" (Primero caché, luego red)
+                event.respondWith(
+                    caches.match(event.request)
+                        .then(response => {
+                            // 1. Si está en caché, lo devolvemos
+                            if (response) {
+                                console.log('Service Worker: Sirviendo desde caché', event.request.url);
+                                return response;
+                            }
+
+                            // 2. Si no está en caché, vamos a la red
+                            return fetch(event.request).then(
+                                response => {
+                                    // Si la respuesta de red no es válida, la devolvemos tal cual
+                                    if (!response || response.status !== 200 || (response.type !== 'basic' && response.type !== 'cors')) {
+                                        return response;
+                                    }
+
+                                    // 3. Clonamos la respuesta válida
+                                    const responseToCache = response.clone();
+                                    
+                                    // 4. Guardamos la respuesta en caché para la próxima vez
+                                    caches.open(CACHE_NAME)
+                                        .then(cache => {
+                                            cache.put(event.request, responseToCache);
+                                        });
+                                    
+                                    // 5. Devolvemos la respuesta de red al navegador
+                                    return response;
+                                }
+                            ).catch(err => {
+                                // Si la red falla (offline) y no está en caché, aquí iría una página offline genérica
+                                console.log('Service Worker: Fetch fallido y no está en caché', event.request.url);
+                            });
+                        })
+                );
+            });
+        `;
+
+        // Registrar el Service Worker
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                const blob = new Blob([swCode], { type: 'application/javascript' });
+                const swUrl = URL.createObjectURL(blob);
+
+                navigator.serviceWorker.register(swUrl)
+                    .then(registration => {
+                        console.log('Service Worker registrado con éxito:', registration);
+                        document.getElementById('offline-status').textContent = '✔ Menú disponible sin conexión';
+                        document.getElementById('offline-status').classList.add('neon-green-text');
+                    })
+                    .catch(error => {
+                        console.error('Error al registrar el Service Worker:', error);
+                        document.getElementById('offline-status').textContent = 'ℹ️ Este menú requiere internet para la primera visita';
+                    });
+            });
+        }
+    </script>
+</body>
+</html>
+
