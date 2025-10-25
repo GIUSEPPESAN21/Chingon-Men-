@@ -14,209 +14,7 @@ st.set_page_config(
 LOGO_URL = "https://github.com/GIUSEPPESAN21/Chingon-Logo/blob/main/Captura%20de%20pantalla%202025-10-20%20080734.png?raw=true"
 SAVA_LOGO_URL = "https://github.com/GIUSEPPESAN21/LOGO-SAVA/blob/main/logo_sava.png?raw=true"
 
-# --- 3. ESTILOS CSS PERSONALIZADOS ---
-# Inyectamos el CSS para dar el look "neón"
-CUSTOM_CSS = """
-<style>
-/* 1. Carga de Fuentes */
-@import url('https://fonts.googleapis.com/css2?family=Bungee&family=Teko:wght@400;600&display=swap');
-
-/* 2. Estilos Globales (Fondo de calavera) */
-body {
-    font-family: 'Teko', sans-serif;
-    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text y="50" font-size="90" fill="rgba(255,255,255,0.03)" dominant-baseline="central" text-anchor="middle">💀</text></svg>');
-}
-
-/* 3. Logo Principal (Sombra Neón) */
-.main-logo {
-    filter: drop-shadow(0 0 15px rgba(236, 72, 153, 0.6));
-}
-
-/* 4. Estilos de fuentes */
-.font-bungee { font-family: 'Bungee', cursive; }
-.font-teko { font-family: 'Teko', sans-serif; }
-
-/* 5. Efectos Neón */
-.neon-pink-text {
-    color: #fce7f3;
-    text-shadow: 0 0 5px #fce7f3, 0 0 10px #fce7f3, 0 0 15px #ec4899, 0 0 20px #ec4899;
-}
-.neon-green-text {
-    color: #dcfce7;
-    text-shadow: 0 0 5px #dcfce7, 0 0 10px #dcfce7, 0 0 15px #22c55e, 0 0 20px #22c55e;
-}
-.neon-yellow-text {
-    color: #fefce8;
-    text-shadow: 0 0 5px #fefce8, 0 0 10px #fefce8, 0 0 15px #eab308, 0 0 20px #eab308;
-}
-.neon-cyan-text {
-    color: #cffafe;
-    text-shadow: 0 0 5px #cffafe, 0 0 10px #cffafe, 0 0 15px #06b6d4, 0 0 20px #06b6d4;
-}
-
-/* 6. Estilo de Pestañas */
-[data-baseweb="tab-list"] button {
-    font-family: 'Bungee', cursive !important;
-    font-size: 1.1rem !important;
-    color: #9ca3af !important;
-    border-bottom: 2px solid transparent !important;
-    transition: all 0.3s ease !important;
-}
-[data-baseweb="tab-list"] button:hover {
-    color: #fefce8 !important;
-}
-[data-baseweb="tab-list"] button[aria-selected="true"] {
-    color: #fefce8 !important;
-    border-bottom-color: #eab308 !important;
-    text-shadow: 0 0 5px #eab308 !important;
-}
-
-/* 7. Estilo de Cajas de Menú (Items Grandes) */
-.menu-item-box {
-    background-color: #111827;
-    border: 1px solid #374151;
-    padding: 1.25rem;
-    border-radius: 0.5rem;
-    margin-bottom: 1rem;
-    height: 100%;
-    transition: all 0.3s ease;
-}
-.menu-item-box:hover {
-    border-color: #ec4899;
-    box-shadow: 0 0 10px #ec4899;
-}
-.menu-item-box h3 {
-    font-family: 'Teko', sans-serif;
-    font-size: 1.875rem;
-    font-weight: 600;
-    color: white;
-}
-.menu-item-box p {
-    font-family: 'Teko', sans-serif;
-    font-size: 1.25rem;
-    color: #9ca3af;
-    margin-bottom: 0.5rem;
-}
-.menu-item-box .price-item {
-    display: flex;
-    justify-content: space-between;
-    font-family: 'Teko', sans-serif;
-    font-size: 1.5rem;
-}
-.menu-item-box .price-item span:first-child {
-    color: #d1d5db;
-}
-.menu-item-box .price-item span:last-child {
-    font-weight: 700;
-}
-
-/* 8. Estilo de Listas (Items Pequeños) */
-.menu-item-list-wrapper {
-    background-color: #111827;
-    border: 1px solid #374151;
-    padding: 0.75rem 1.25rem;
-    border-radius: 0.5rem;
-}
-.menu-item-list {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 1px solid #374151;
-    padding-top: 0.5rem;
-    padding-bottom: 0.5rem;
-}
-.menu-item-list:last-child {
-    border-bottom: none;
-}
-.menu-item-list h3 {
-    font-family: 'Teko', sans-serif;
-    font-size: 1.875rem;
-    color: white;
-    margin: 0;
-}
-.menu-item-list span {
-    font-family: 'Teko', sans-serif;
-    font-size: 1.875rem;
-    font-weight: 700;
-}
-.menu-item-list p {
-    font-size: 1.1rem;
-    color: #9ca3af;
-    margin: 0;
-    margin-left: 10px;
-}
-
-/* 9. Estilo de Promos */
-.promo-box {
-    padding: 1.5rem;
-    background-color: #111827;
-    border-radius: 0.5rem;
-    text-align: center;
-    border-width: 2px;
-}
-.promo-pink { border-color: #ec4899; box-shadow: 0 0 10px #ec4899; }
-.promo-green { border-color: #22c55e; box-shadow: 0 0 10px #22c55e; }
-.promo-cyan { border-color: #06b6d4; box-shadow: 0 0 10px #06b6d4; }
-</style>
-"""
-st.markdown(CUSTOM_CSS, unsafe_allow_html=True)
-
-# --- 4. FUNCIONES HELPER (¡AQUÍ ESTÁ LA CORRECCIÓN!) ---
-#
-# Estas funciones AHORA imprimen el HTML directamente.
-# Esto soluciona el error de ver texto HTML en crudo.
-#
-
-def render_item_card(name, desc, prices):
-    """(Para Granizados, Micheladas) Dibuja una caja grande."""
-    prices_html = ""
-    for label, price in prices:
-        prices_html += f"""
-        <div class="price-item">
-            <span>{label}</span>
-            <span class="neon-green-text">{price}</span>
-        </div>
-        """
-    html = f"""
-    <div class="menu-item-box">
-        <h3>{name}</h3>
-        <p>{desc}</p>
-        {prices_html}
-    </div>
-    """
-    st.markdown(html, unsafe_allow_html=True)
-
-def render_item_simple_card(name, price):
-    """(Para Cremosos, Cocteles) Dibuja una caja grande simple."""
-    html = f"""
-    <div class="menu-item-box">
-        <div class="price-item">
-            <h3>{name}</h3>
-            <span class="neon-green-text">{price}</span>
-        </div>
-    </div>
-    """
-    st.markdown(html, unsafe_allow_html=True)
-
-def render_item_list(items_list):
-    """(Para Ramen, Bebidas, Dulces) Dibuja una lista dentro de una caja."""
-    items_html = ""
-    for item in items_list:
-        note_html = f"<p>{item['note']}</p>" if 'note' in item and item['note'] else ""
-        items_html += f"""
-        <div class="menu-item-list">
-            <div style="display: flex; align-items: center;">
-                <h3>{item['name']}</h3>
-                {note_html}
-            </div>
-            <span class="neon-green-text">{item['price']}</span>
-        </div>
-        """
-    
-    html = f"<div class='menu-item-list-wrapper'>{items_html}</div>"
-    st.markdown(html, unsafe_allow_html=True)
-
-# --- 5. DATOS DEL MENÚ (Más organizado) ---
+# --- 3. DATOS DEL MENÚ (Organizados) ---
 
 # Datos Pestaña 1: Granizados
 GRANIZADOS_PRINCIPALES = [
@@ -246,8 +44,36 @@ GRANIZADOS_CREMOSOS = [
     {"name": "CREMA DE BAYLEYS", "price": "$14.000"},
     {"name": "CREMA DE PIÑA", "price": "$14.000"}
 ]
+EXTRAS_SIN_ALCOHOL = [
+    {"type": "card", "name": "GRANIZADO SIN ALCOHOL", "desc": "Preguntar Disponibilidad", "prices": [("", "$14.000")]},
+    {"type": "simple", "name": "SHOTS MOLECULAR", "price": "$3.000"},
+    {"type": "simple", "name": "BOTELLA AGUARDIENTE", "price": "$70.000"},
+    {"type": "card", "name": "JERINGAS DE VENENO", "desc": "", "prices": [("Pequeña", "$3.000"), ("Grande", "$5.000")]},
+    {"type": "simple", "name": "CANECA AGUARDIENTE", "price": "$40.000"},
+    {"type": "card", "name": "GOMAS ENCHILADAS", "desc": "", "prices": [("Tamaño S", "$10.000"), ("Tamaño M", "$15.000"), ("Tamaño L", "$19.000")]}
+]
 
-# Datos Pestaña 3: Micheladas
+# Datos Pestaña 2: Picar/Compartir
+PA_PICAR = [
+    {"name": "ALITAS", "desc": "5 Alitas, Porcion De Papas, Jugo Hit En Caja", "price": "$16.000"},
+    {"name": "NUGGETS", "desc": "8 Nuggets, Porcion De Papas, Jugo Hit En Caja", "price": "$16.000"},
+    {"name": "SALCHIPAPA", "desc": "Porción De Papa, Salchicha, Salsas Al Gusto, Queso Derretido y 2 Jugos Hit", "price": "$16.000"}
+]
+PA_COMPARTIR = [
+    {"name": "NEVECON DE CHELA", "desc": "", "prices": [("Pequeño (3 a 4 Personas)", "$45.000"), ("Grande (7 a 8 Personas)", "$70.000")]},
+    {"name": "NEVECON CHINGON", "desc": "", "prices": [("", "$60.000")]},
+    {"name": "NEVECON CHINGON GRANDE", "desc": "", "prices": [("", "$90.000")]},
+    {"name": "NEVECON PUPPY", "desc": "Granizado Con Gomitas Rojas o Varias Presentaciones, Perlas Explosivas, Bombombum y 2 JP", "prices": [("", "$100.000")]},
+    {"name": "LA PECERA", "desc": "Granizado Azul, Fresa, Naranja, Gomitas, Perlas Explosivas y Cerveza Coronita (2 a 4 Personas)", "prices": [("", "$50.000")]},
+    {"name": "CUATAZO", "desc": "Bebida Michelada con Tajín Gomitas bañadas en Chamoy, Tajín y Manzana verde (Mamoncillo) o Guayaba Manzana", "prices": [("", "$24.000")]}
+]
+
+# Datos Pestaña 3: Cocteles y Micheladas
+COCTELES = [
+    {"name": "EXPLOSION DE FRESAS", "desc": "Smirnoff Con Fresas y Leche Condensada", "price": "$25.000"},
+    {"name": "CHINGON", "desc": "Tequila, Limon, Sirope Cosmico, etc. Servido En Botella Exclusiva Con Gajos De Limon (2 Personas)", "price": "$50.000"},
+    {"name": "MARGARITA", "desc": "", "price": "$20.000"}
+]
 MICHELADAS = [
     {"name": "MICHELADA DE FRESA", "desc": "Vaso Con Cerveza Michelado Con Sal, Fresas, Zumo de Limón y Hielo", "price": "$15.000"},
     {"name": "MICHELADA ENCHILADA", "desc": "Vaso con Cerveza Michelado Con Sal Pimienta, Mango Biche Envuelto En Tajin, Zumo de Limón, Hielo y Takis", "price": "$19.000"},
@@ -316,220 +142,448 @@ DULCES = [
     {"name": "NUTELA", "price": "$4.000"}
 ]
 
-
-# --- 6. RENDERIZADO DE LA APLICACIÓN ---
-
-# --- Encabezado ---
-st.markdown(f"""
-<header style="text-align: center; margin-top: 2rem; margin-bottom: 2rem;">
-    <img src="{LOGO_URL}" alt="Chingon Cocteles Logo" class="main-logo" style="width: auto; height: 12rem; margin: auto;">
-</header>
-""", unsafe_allow_html=True)
-
-# --- Pestañas de Navegación ---
-tab_list = [
-    "Granizados", 
-    "Pa' Picar/Compartir", 
-    "Cocteles y Micheladas", 
-    "Ramen", 
-    "Bebidas", 
-    "Dulces", 
-    "Promos"
-]
-tab_granizados, tab_compartir, tab_cocteles, tab_ramen, tab_bebidas, tab_dulces, tab_promos = st.tabs(tab_list)
-
-# --- PESTAÑA 1: GRANIZADOS ---
-with tab_granizados:
-    st.markdown("<h2 class='font-bungee neon-green-text' style='text-align: center;'>Granizados</h2>", unsafe_allow_html=True)
-    
-    # MEJORA: Se usa st.columns(1) para que no se vea "estrecho"
-    with st.columns(1)[0]:
-        for item in GRANIZADOS_PRINCIPALES:
-            render_item_card(item["name"], item["desc"], PRECIOS_GRANIZADOS)
-    
-    st.markdown("<h3 class='font-bungee neon-cyan-text' style='text-align: center; margin-top: 2rem;'>Granizados Cremosos</h3>", unsafe_allow_html=True)
-    
-    cols_cremosos = st.columns(2)
-    for i, item in enumerate(GRANIZADOS_CREMOSOS):
-        with cols_cremosos[i % 2]:
-            render_item_simple_card(item["name"], item["price"])
-            
-    st.markdown("<h3 class='font-bungee neon-cyan-text' style='text-align: center; margin-top: 2rem;'>Extras y Sin Alcohol</h3>", unsafe_allow_html=True)
-    
-    cols_extras = st.columns(2)
-    with cols_extras[0]:
-        render_item_card("GRANIZADO SIN ALCOHOL", "Preguntar Disponibilidad", [("", "$14.000")])
-        render_item_simple_card("SHOTS MOLECULAR", "$3.000")
-        render_item_simple_card("BOTELLA AGUARDIENTE", "$70.000")
-    with cols_extras[1]:
-        render_item_card("JERINGAS DE VENENO", "", [("Pequeña", "$3.000"), ("Grande", "$5.000")])
-        render_item_simple_card("CANECA AGUARDIENTE", "$40.000")
-        render_item_card("GOMAS ENCHILADAS", "", [("Tamaño S", "$10.000"), ("Tamaño M", "$15.000"), ("Tamaño L", "$19.000")])
-
-# --- PESTAÑA 2: PA' PICAR / COMPARTIR ---
-with tab_compartir:
-    st.markdown("<h2 class='font-bungee neon-green-text' style='text-align: center;'>Pa' Picar y Compartir</h2>", unsafe_allow_html=True)
-    
-    st.markdown("<h3 class='font-bungee neon-cyan-text' style='text-align: center; margin-top: 2rem;'>Pa' Picar</h3>", unsafe_allow_html=True)
-    
-    cols_picar = st.columns(2)
-    with cols_picar[0]:
-        render_item_card("ALITAS", "5 Alitas, Porcion De Papas, Jugo Hit En Caja", [("", "$16.000")])
-    with cols_picar[1]:
-        render_item_card("NUGGETS", "8 Nuggets, Porcion De Papas, Jugo Hit En Caja", [("", "$16.000")])
-    
-    with st.columns(1)[0]:
-        render_item_card("SALCHIPAPA", "Porción De Papa, Salchicha, Salsas Al Gusto, Queso Derretido y 2 Jugos Hit", [("", "$16.000")])
-    
-    st.markdown("<h3 class='font-bungee neon-cyan-text' style='text-align: center; margin-top: 2rem;'>Pa' Compartir</h3>", unsafe_allow_html=True)
-    
-    cols_compartir = st.columns(2)
-    with cols_compartir[0]:
-        render_item_card("NEVECON DE CHELA", "", [("Pequeño (3 a 4 Personas)", "$45.000"), ("Grande (7 a 8 Personas)", "$70.000")])
-        render_item_simple_card("NEVECON CHINGON GRANDE", "$90.000")
-        render_item_card("LA PECERA", "Granizado Azul, Fresa, Naranja, Gomitas, Perlas Explosivas y Cerveza Coronita (2 a 4 Personas)", [("", "$50.000")])
-    with cols_compartir[1]:
-        render_item_simple_card("NEVECON CHINGON", "$60.000")
-        render_item_card("NEVECON PUPPY", "Granizado Con Gomitas Rojas o Varias Presentaciones, Perlas Explosivas, Bombombum y 2 JP", [("", "$100.000")])
-        render_item_card("CUATAZO", "Bebida Michelada con Tajín Gomitas bañadas en Chamoy, Tajín y Manzana verde (Mamoncillo) o Guayaba Manzana", [("", "$24.000")])
-
-# --- PESTAÑA 3: COCTELES Y MICHELADAS ---
-with tab_cocteles:
-    st.markdown("<h2 class='font-bungee neon-pink-text' style='text-align: center;'>Cocteles y Micheladas</h2>", unsafe_allow_html=True)
-    
-    st.markdown("<h3 class='font-bungee neon-cyan-text' style='text-align: center; margin-top: 2rem;'>Cocteles</h3>", unsafe_allow_html=True)
-    
-    cols_cocteles = st.columns(2)
-    with cols_cocteles[0]:
-        render_item_card("EXPLOSION DE FRESAS", "Smirnoff Con Fresas y Leche Condensada", [("", "$25.000")])
-    with cols_cocteles[1]:
-        render_item_card("CHINGON", "Tequila, Limon, Sirope Cosmico, etc. Servido En Botella Exclusiva Con Gajos De Limon (2 Personas)", [("", "$50.000")])
-    
-    with st.columns(1)[0]:
-        render_item_simple_card("MARGARITA", "$20.000")
-    
-    st.markdown("<h3 class='font-bungee neon-cyan-text' style='text-align: center; margin-top: 2rem;'>Micheladas y Mas</h3>", unsafe_allow_html=True)
-
-    # MEJORA: Se usa st.columns(1) para que no se vea "estrecho"
-    with st.columns(1)[0]:
-        for item in MICHELADAS:
-            render_item_card(item["name"], item["desc"], [("", item["price"])])
-
-# --- PESTAÑA 4: RAMEN ---
-with tab_ramen:
-    st.markdown("<h2 class='font-bungee neon-yellow-text' style='text-align: center;'>Ramen</h2>", unsafe_allow_html=True)
-    
-    with st.columns(1)[0]:
-        render_item_list(RAMEN_LIST)
-
-# --- PESTAÑA 5: BEBIDAS ---
-with tab_bebidas:
-    st.markdown("<h2 class='font-bungee neon-yellow-text' style='text-align: center;'>Bebidas</h2>", unsafe_allow_html=True)
-    
-    st.markdown("<h3 class='font-bungee neon-cyan-text' style='text-align: center; margin-top: 2rem;'>Otras Bebidas</h3>", unsafe_allow_html=True)
-    
-    # MEJORA: Se usa st.columns(2) en lugar de 3 para que no sea "estrecho"
-    cols_otras = st.columns(2)
-    split_idx = len(OTRAS_BEBIDAS) // 2 + 1
-    with cols_otras[0]:
-        render_item_list(OTRAS_BEBIDAS[:split_idx])
-    with cols_otras[1]:
-        render_item_list(OTRAS_BEBIDAS[split_idx:])
-
-    st.markdown("<h3 class='font-bungee neon-cyan-text' style='text-align: center; margin-top: 2rem;'>Bebidas Importados</h3>", unsafe_allow_html=True)
-    
-    # MEJORA: Se usa st.columns(2) en lugar de 3 para que no sea "estrecho"
-    cols_importadas = st.columns(2)
-    split_idx = len(BEBIDAS_IMPORTADAS) // 2 + 1
-    with cols_importadas[0]:
-        render_item_list(BEBIDAS_IMPORTADAS[:split_idx])
-    with cols_importadas[1]:
-        render_item_list(BEBIDAS_IMPORTADAS[split_idx:])
-
-# --- PESTAÑA 6: DULCES ---
-with tab_dulces:
-    st.markdown("<h2 class='font-bungee neon-yellow-text' style='text-align: center;'>Dulces Importados</h2>", unsafe_allow_html=True)
-    
-    # MEJORA: Se usa st.columns(2) en lugar de 3 para que no sea "estrecho"
-    cols_dulces = st.columns(2)
-    split_idx = len(DULCES) // 2 + 1
-    with cols_dulces[0]:
-        render_item_list(DULCES[:split_idx])
-    with cols_dulces[1]:
-        render_item_list(DULCES[split_idx:])
-
-# --- PESTAÑA 7: PROMOS ---
-with tab_promos:
-    st.markdown("<h2 class='font-bungee neon-yellow-text' style='text-align: center;'>Promos e Info</h2>", unsafe_allow_html=True)
-    
+# --- 4. ESTILOS CSS (Inyectados) ---
+# Se inyecta el CSS personalizado una vez
+def inyectar_css():
     st.markdown("""
-    <div class="promo-box promo-pink" style="margin-top: 2rem;">
+    <style>
+    /* 1. Carga de Fuentes */
+    @import url('https://fonts.googleapis.com/css2?family=Bungee&family=Teko:wght@400;600&display=swap');
+
+    /* 2. Estilos Globales (Fondo de calavera) */
+    body {
+        font-family: 'Teko', sans-serif;
+        background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text y="50" font-size="90" fill="rgba(255,255,255,0.03)" dominant-baseline="central" text-anchor="middle">💀</text></svg>');
+    }
+
+    /* 3. Logo Principal (Sombra Neón) */
+    .main-logo {
+        filter: drop-shadow(0 0 15px rgba(236, 72, 153, 0.6));
+    }
+
+    /* 4. Estilos de fuentes */
+    .font-bungee { font-family: 'Bungee', cursive; }
+    .font-teko { font-family: 'Teko', sans-serif; }
+
+    /* 5. Efectos Neón */
+    .neon-pink-text {
+        color: #fce7f3;
+        text-shadow: 0 0 5px #fce7f3, 0 0 10px #fce7f3, 0 0 15px #ec4899, 0 0 20px #ec4899;
+    }
+    .neon-green-text {
+        color: #dcfce7;
+        text-shadow: 0 0 5px #dcfce7, 0 0 10px #dcfce7, 0 0 15px #22c55e, 0 0 20px #22c55e;
+    }
+    .neon-yellow-text {
+        color: #fefce8;
+        text-shadow: 0 0 5px #fefce8, 0 0 10px #fefce8, 0 0 15px #eab308, 0 0 20px #eab308;
+    }
+    .neon-cyan-text {
+        color: #cffafe;
+        text-shadow: 0 0 5px #cffafe, 0 0 10px #cffafe, 0 0 15px #06b6d4, 0 0 20px #06b6d4;
+    }
+
+    /* 6. Estilo de Pestañas */
+    [data-baseweb="tab-list"] button {
+        font-family: 'Bungee', cursive !important;
+        font-size: 1.1rem !important;
+        color: #9ca3af !important;
+        border-bottom: 2px solid transparent !important;
+        transition: all 0.3s ease !important;
+    }
+    [data-baseweb="tab-list"] button:hover {
+        color: #fefce8 !important;
+    }
+    [data-baseweb="tab-list"] button[aria-selected="true"] {
+        color: #fefce8 !important;
+        border-bottom-color: #eab308 !important;
+        text-shadow: 0 0 5px #eab308 !important;
+    }
+
+    /* 7. Estilo de Cajas de Menú (Items Grandes) */
+    .menu-item-box {
+        background-color: #111827;
+        border: 1px solid #374151;
+        padding: 1.25rem;
+        border-radius: 0.5rem;
+        margin-bottom: 1rem;
+        height: 100%;
+        transition: all 0.3s ease;
+    }
+    .menu-item-box:hover {
+        border-color: #ec4899;
+        box-shadow: 0 0 10px #ec4899;
+    }
+    .menu-item-box h3 {
+        font-family: 'Teko', sans-serif;
+        font-size: 1.875rem;
+        font-weight: 600;
+        color: white;
+    }
+    .menu-item-box p {
+        font-family: 'Teko', sans-serif;
+        font-size: 1.25rem;
+        color: #9ca3af;
+        margin-bottom: 0.5rem;
+        min-height: 1.5rem; /* Para alinear cajas vacías */
+    }
+    .menu-item-box .price-item {
+        display: flex;
+        justify-content: space-between;
+        font-family: 'Teko', sans-serif;
+        font-size: 1.5rem;
+    }
+    .menu-item-box .price-item span:first-child {
+        color: #d1d5db;
+    }
+    .menu-item-box .price-item span:last-child {
+        font-weight: 700;
+    }
+
+    /* 8. Estilo de Listas (Items Pequeños) */
+    .menu-item-list-wrapper {
+        background-color: #111827;
+        border: 1px solid #374151;
+        padding: 0.75rem 1.25rem;
+        border-radius: 0.5rem;
+        margin-bottom: 1rem;
+    }
+    .menu-item-list {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid #374151;
+        padding-top: 0.5rem;
+        padding-bottom: 0.5rem;
+    }
+    .menu-item-list:last-child {
+        border-bottom: none;
+    }
+    .menu-item-list h3 {
+        font-family: 'Teko', sans-serif;
+        font-size: 1.875rem;
+        color: white;
+        margin: 0;
+    }
+    .menu-item-list span {
+        font-family: 'Teko', sans-serif;
+        font-size: 1.875rem;
+        font-weight: 700;
+    }
+    .menu-item-list p {
+        font-size: 1.1rem;
+        color: #9ca3af;
+        margin: 0;
+        margin-left: 10px;
+    }
+
+    /* 9. Estilo de Promos */
+    .promo-box {
+        padding: 1.5rem;
+        background-color: #111827;
+        border-radius: 0.5rem;
+        text-align: center;
+        border-width: 2px;
+        margin-top: 2rem;
+    }
+    .promo-pink { border-color: #ec4899; box-shadow: 0 0 10px #ec4899; }
+    .promo-green { border-color: #22c55e; box-shadow: 0 0 10px #22c55e; }
+    .promo-cyan { border-color: #06b6d4; box-shadow: 0 0 10px #06b6d4; }
+    
+    /* 10. Layout Grids (Para el HTML construido) */
+    .grid { display: grid; }
+    .grid-cols-1 { grid-template-columns: repeat(1, minmax(0, 1fr)); }
+    .gap-6 { gap: 1.5rem; }
+    
+    @media (min-width: 768px) {
+        .md\\:grid-cols-2 {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+        .md\\:gap-x-6 {
+             column-gap: 1.5rem;
+        }
+    }
+    </style>
+    """, unsafe_allow_html=True)
+
+# --- 5. FUNCIONES PARA CONSTRUIR EL HTML DE CADA PESTAÑA ---
+
+def build_card_html(name, desc, prices):
+    """Construye el HTML para una caja de item GRANDE"""
+    prices_html = ""
+    for label, price in prices:
+        prices_html += f"""
+        <div class="price-item">
+            <span>{label}</span>
+            <span class="neon-green-text">{price}</span>
+        </div>
+        """
+    desc_html = f"<p>{desc}</p>" if desc else "<p></p>" # <p> vacío para alinear
+    return f"""
+    <div class="menu-item-box">
+        <h3>{name}</h3>
+        {desc_html}
+        {prices_html}
+    </div>
+    """
+
+def build_simple_card_html(name, price):
+    """Construye el HTML para una caja de item GRANDE y SIMPLE"""
+    return f"""
+    <div class="menu-item-box">
+        <div class="price-item">
+            <h3>{name}</h3>
+            <span class="neon-green-text">{price}</span>
+        </div>
+    </div>
+    """
+
+def build_list_html(items_list):
+    """Construye el HTML para una LISTA de items"""
+    items_html = ""
+    for item in items_list:
+        note_html = f"<p>{item['note']}</p>" if 'note' in item and item['note'] else ""
+        items_html += f"""
+        <div class="menu-item-list">
+            <div style="display: flex; align-items: center;">
+                <h3>{item['name']}</h3>
+                {note_html}
+            </div>
+            <span class="neon-green-text">{item['price']}</span>
+        </div>
+        """
+    return f"<div class='menu-item-list-wrapper'>{items_html}</div>"
+
+# --- Funciones constructoras de Pestañas ---
+
+def build_granizados_tab_html():
+    html = ["<h2 class='font-bungee neon-green-text' style='text-align: center;'>Granizados</h2>"]
+    
+    # --- MEJORA: 1 Columna para Granizados (más grande) ---
+    html.append("<div class='grid grid-cols-1 gap-6'>")
+    for item in GRANIZADOS_PRINCIPALES:
+        html.append(build_card_html(item["name"], item["desc"], PRECIOS_GRANIZADOS))
+    html.append("</div>")
+
+    html.append("<h3 class='font-bungee neon-cyan-text' style='text-align: center; margin-top: 2rem;'>Granizados Cremosos</h3>")
+    html.append("<div class='grid grid-cols-1 md:grid-cols-2 gap-6'>")
+    for item in GRANIZADOS_CREMOSOS:
+        html.append(build_simple_card_html(item["name"], item["price"]))
+    html.append("</div>")
+
+    html.append("<h3 class='font-bungee neon-cyan-text' style='text-align: center; margin-top: 2rem;'>Extras y Sin Alcohol</h3>")
+    html.append("<div class='grid grid-cols-1 md:grid-cols-2 gap-6'>")
+    for item in EXTRAS_SIN_ALCOHOL:
+        if item["type"] == "card":
+            html.append(build_card_html(item["name"], item["desc"], item["prices"]))
+        elif item["type"] == "simple":
+            html.append(build_simple_card_html(item["name"], item["price"]))
+    html.append("</div>")
+    
+    return "".join(html)
+
+def build_compartir_tab_html():
+    html = ["<h2 class='font-bungee neon-green-text' style='text-align: center;'>Pa' Picar y Compartir</h2>"]
+    
+    html.append("<h3 class='font-bungee neon-cyan-text' style='text-align: center; margin-top: 2rem;'>Pa' Picar</h3>")
+    html.append("<div class='grid grid-cols-1 md:grid-cols-2 gap-6'>")
+    for item in PA_PICAR:
+        html.append(build_card_html(item["name"], item["desc"], [("", item["price"])]))
+    html.append("</div>")
+
+    html.append("<h3 class='font-bungee neon-cyan-text' style='text-align: center; margin-top: 2rem;'>Pa' Compartir</h3>")
+    html.append("<div class='grid grid-cols-1 md:grid-cols-2 gap-6'>")
+    for item in PA_COMPARTIR:
+        html.append(build_card_html(item["name"], item["desc"], item["prices"]))
+    html.append("</div>")
+    
+    return "".join(html)
+
+def build_cocteles_tab_html():
+    html = ["<h2 class='font-bungee neon-pink-text' style='text-align: center;'>Cocteles y Micheladas</h2>"]
+    
+    html.append("<h3 class='font-bungee neon-cyan-text' style='text-align: center; margin-top: 2rem;'>Cocteles</h3>")
+    html.append("<div class='grid grid-cols-1 md:grid-cols-2 gap-6'>")
+    for item in COCTELES:
+        html.append(build_card_html(item["name"], item["desc"], [("", item["price"])]))
+    html.append("</div>")
+
+    html.append("<h3 class='font-bungee neon-cyan-text' style='text-align: center; margin-top: 2rem;'>Micheladas y Mas</h3>")
+    # --- MEJORA: 1 Columna para Micheladas (más grande) ---
+    html.append("<div class='grid grid-cols-1 gap-6'>")
+    for item in MICHELADAS:
+        html.append(build_card_html(item["name"], item["desc"], [("", item["price"])]))
+    html.append("</div>")
+    
+    return "".join(html)
+
+def build_ramen_tab_html():
+    html = ["<h2 class='font-bungee neon-yellow-text' style='text-align: center;'>Ramen</h2>"]
+    html.append("<div class='grid grid-cols-1 gap-6'>")
+    html.append(build_list_html(RAMEN_LIST))
+    html.append("</div>")
+    return "".join(html)
+
+def build_bebidas_tab_html():
+    html = ["<h2 class='font-bungee neon-yellow-text' style='text-align: center;'>Bebidas</h2>"]
+    
+    html.append("<h3 class='font-bungee neon-cyan-text' style='text-align: center; margin-top: 2rem;'>Otras Bebidas</h3>")
+    html.append("<div class='grid grid-cols-1 md:grid-cols-2 gap-6'>")
+    split_idx = len(OTRAS_BEBIDAS) // 2 + (len(OTRAS_BEBIDAS) % 2) # División más equitativa
+    html.append(build_list_html(OTRAS_BEBIDAS[:split_idx]))
+    html.append(build_list_html(OTRAS_BEBIDAS[split_idx:]))
+    html.append("</div>")
+
+    html.append("<h3 class='font-bungee neon-cyan-text' style='text-align: center; margin-top: 2rem;'>Bebidas Importados</h3>")
+    html.append("<div class='grid grid-cols-1 md:grid-cols-2 gap-6'>")
+    split_idx = len(BEBIDAS_IMPORTADAS) // 2 + (len(BEBIDAS_IMPORTADAS) % 2)
+    html.append(build_list_html(BEBIDAS_IMPORTADAS[:split_idx]))
+    html.append(build_list_html(BEBIDAS_IMPORTADAS[split_idx:]))
+    html.append("</div>")
+    
+    return "".join(html)
+
+def build_dulces_tab_html():
+    html = ["<h2 class='font-bungee neon-yellow-text' style='text-align: center;'>Dulces Importados</h2>"]
+    
+    html.append("<div class='grid grid-cols-1 md:grid-cols-2 gap-6'>")
+    split_idx = len(DULCES) // 2 + (len(DULCES) % 2)
+    html.append(build_list_html(DULCES[:split_idx]))
+    html.append(build_list_html(DULCES[split_idx:]))
+    html.append("</div>")
+    
+    return "".join(html)
+
+def build_promos_tab_html():
+    # Esta pestaña es estática, así que solo devolvemos el HTML
+    return """
+    <h2 class='font-bungee neon-yellow-text' style='text-align: center;'>Promos e Info</h2>
+    
+    <div class="promo-box promo-pink">
         <h3 class="font-bungee neon-pink-text" style="font-size: 2rem; margin-bottom: 0.5rem;">¡DULCERIA!</h3>
         <p style="font-size: 1.75rem;">¡En Chingon Cocteles contamos con dulceria mexicana y oriental!</p>
     </div>
     
-    <div class="promo-box promo-cyan" style="margin-top: 2rem;">
+    <div class="promo-box promo-cyan">
         <h3 class="font-bungee neon-cyan-text" style="font-size: 2rem; margin-bottom: 0.5rem;">YA DISPONIBLE TERMOS</h3>
     </div>
     
-    <div class="promo-box promo-green" style="margin-top: 2rem;">
+    <div class="promo-box promo-green">
         <h3 class="font-bungee neon-green-text" style="font-size: 2rem; margin-bottom: 0.5rem;">¡SOMOS ARTE!</h3>
         <p style="font-size: 1.75rem;">Podrás tambien pintar mientras disfrutas de un granizado</p>
         <p style="font-size: 1.25rem; color: #d1d5db;">(Pintura en Ceramica + Pincel + Vinilo)</p>
     </div>
     
-    <div class="promo-box promo-pink" style="margin-top: 2rem;">
+    <div class="promo-box promo-pink">
         <h3 class="font-bungee neon-pink-text" style="font-size: 2rem; margin-bottom: 0.5rem;">LUNES DE AMIGOS</h3>
         <p style="font-size: 1.75rem;">¡Compra 2 Granizados y llevas el 3 GRATIS!</p>
     </div>
     
-    <div class="promo-box promo-green" style="margin-top: 2rem;">
+    <div class="promo-box promo-green">
         <h3 class="font-bungee neon-green-text" style="font-size: 2rem; margin-bottom: 0.5rem;">MARTES DE VENENO</h3>
         <p style="font-size: 1.75rem;">¡Jeringa GRATIS para todos los granizados!</p>
     </div>
+    """
+
+def render_header():
+    """Dibuja el logo principal"""
+    st.markdown(f"""
+    <header style="text-align: center; margin-top: 2rem; margin-bottom: 2rem;">
+        <img src="{LOGO_URL}" alt="Chingon Cocteles Logo" class="main-logo" style="width: auto; height: 12rem; margin: auto;">
+    </header>
     """, unsafe_allow_html=True)
 
-# --- 7. PIE DE PÁGINA Y SECCIÓN SAVA ---
-st.markdown("---")
+def render_footer():
+    """Dibuja el pie de página, redes y sección SAVA"""
+    st.markdown("---")
+    
+    # Redes Sociales
+    st.markdown("""
+    <footer style="text-align: center; margin-top: 2rem;">
+        <h3 class="font-bungee neon-pink-text" style="font-size: 1.5rem; margin-bottom: 1rem;">¡Siguenos en Nuestras Redes!</h3>
+        <div style="display: flex; justify-content: center; gap: 2rem; margin-bottom: 1.5rem; font-size: 1.5rem; font-family: 'Teko';">
+            <a href="https://www.instagram.com/CHINGON_COCTELES" target="_blank" style="color: #d1d5db; text-decoration: none; transition: all 0.3s ease;">
+                @CHINGON_COCTELES
+            </a>
+            <a href="https://www.tiktok.com/@CHINGON.CCTELES" target="_blank" style="color: #d1d5db; text-decoration: none; transition: all 0.3s ease;">
+                @CHINGON.CCTELES
+            </a>
+        </div>
+    </footer>
+    """, unsafe_allow_html=True)
 
-st.markdown("""
-<footer style="text-align: center; margin-top: 2rem;">
-    <h3 class="font-bungee neon-pink-text" style="font-size: 1.5rem; margin-bottom: 1rem;">¡Siguenos en Nuestras Redes!</h3>
-    <div style="display: flex; justify-content: center; gap: 2rem; margin-bottom: 1.5rem; font-size: 1.5rem; font-family: 'Teko';">
-        <a href="https://www.instagram.com/CHINGON_COCTELES" target="_blank" style="color: #d1d5db; text-decoration: none; transition: all 0.3s ease;">
-            @CHINGON_COCTELES
-        </a>
-        <a href="https://www.tiktok.com/@CHINGON.CCTELES" target="_blank" style="color: #d1d5db; text-decoration: none; transition: all 0.3s ease;">
-            @CHINGON.CCTELES
-        </a>
-    </div>
-</footer>
-""", unsafe_allow_html=True)
-
-# Sección SAVA (Corregido el KeyError)
-sava_html = f"""
-<div class="menu-item-box" style="margin-top: 2rem;">
-    <h3 class="font-bungee neon-cyan-text" style="text-align: center; font-size: 1.5rem; margin-bottom: 1.5rem;">Desarrollado Por</h3>
-    <div style="display: flex; flex-direction: column; align-items: center; text-align: center;">
-        <img src="{SAVA_LOGO_URL}" alt="Logo SAVA" style="width: 8rem; height: 8rem; margin-bottom: 1rem;">
-        <div>
-            <h4 class="font-bungee" style="font-size: 1.5rem; color: white;">Joseph Javier Sánchez Acuña</h4>
-            <p class="neon-cyan-text" style="font-size: 1.25rem; font-weight: 600; margin-bottom: 0.5rem;">CEO - SAVA SOFTWARE FOR ENGINEERING</p>
-            <p style="font-size: 1.25rem; color: #d1d5db;">
-                Líder visionario con una profunda experiencia en inteligencia artificial y desarrollo de software. Joseph es el cerebro detrás de la arquitectura de OSIRIS, impulsando la innovación y asegurando que nuestra tecnología se mantenga a la vanguardia.
-            </p>
+    # Sección SAVA (Usa f-string para evitar el KeyError)
+    sava_html = f"""
+    <div class="menu-item-box" style="margin-top: 2rem;">
+        <h3 class="font-bungee neon-cyan-text" style="text-align: center; font-size: 1.5rem; margin-bottom: 1.5rem;">Desarrollado Por</h3>
+        <div style="display: flex; flex-direction: column; align-items: center; text-align: center;">
+            <img src="{SAVA_LOGO_URL}" alt="Logo SAVA" style="width: 8rem; height: 8rem; margin-bottom: 1rem;">
+            <div>
+                <h4 class="font-bungee" style="font-size: 1.5rem; color: white;">Joseph Javier Sánchez Acuña</h4>
+                <p class="neon-cyan-text" style="font-size: 1.25rem; font-weight: 600; margin-bottom: 0.5rem;">CEO - SAVA SOFTWARE FOR ENGINEERING</p>
+                <p style="font-size: 1.25rem; color: #d1d5db;">
+                    Líder visionario con una profunda experiencia en inteligencia artificial y desarrollo de software. Joseph es el cerebro detrás de la arquitectura de OSIRIS, impulsando la innovación y asegurando que nuestra tecnología se mantenga a la vanguardia.
+                </p>
+            </div>
         </div>
     </div>
-</div>
-"""
-st.markdown(sava_html, unsafe_allow_html=True)
+    """
+    st.markdown(sava_html, unsafe_allow_html=True)
+
+    # Copyright
+    current_year = datetime.date.today().year
+    st.markdown(f"""
+    <p style="font-family: 'Teko'; font-size: 1.1rem; color: #6b7280; text-align: center; margin-top: 2rem;">
+        &copy; {current_year} Chingon Cocteles. Todos los derechos reservados.
+    </p>
+    """, unsafe_allow_html=True)
 
 
-# Copyright
-current_year = datetime.date.today().year
-st.markdown(f"""
-<p style="font-family: 'Teko'; font-size: 1.1rem; color: #6b7280; text-align: center; margin-top: 2rem;">
-    &copy; {current_year} Chingon Cocteles. Todos los derechos reservados.
-</p>
-""", unsafe_allow_html=True)
+# --- 7. FUNCIÓN PRINCIPAL DE LA APP ---
+def main():
+    # 1. Inyectar todos los estilos CSS
+    inyectar_css()
+
+    # 2. Dibujar el logo
+    render_header()
+
+    # 3. Definir las pestañas
+    tab_list = [
+        "Granizados", 
+        "Pa' Picar/Compartir", 
+        "Cocteles y Micheladas", 
+        "Ramen", 
+        "Bebidas", 
+        "Dulces", 
+        "Promos"
+    ]
+    tab_granizados, tab_compartir, tab_cocteles, tab_ramen, tab_bebidas, tab_dulces, tab_promos = st.tabs(tab_list)
+
+    # 4. Renderizar el HTML de cada pestaña (¡LA SOLUCIÓN!)
+    with tab_granizados:
+        st.markdown(build_granizados_tab_html(), unsafe_allow_html=True)
+    
+    with tab_compartir:
+        st.markdown(build_compartir_tab_html(), unsafe_allow_html=True)
+
+    with tab_cocteles:
+        st.markdown(build_cocteles_tab_html(), unsafe_allow_html=True)
+    
+    with tab_ramen:
+        st.markdown(build_ramen_tab_html(), unsafe_allow_html=True)
+        
+    with tab_bebidas:
+        st.markdown(build_bebidas_tab_html(), unsafe_allow_html=True)
+        
+    with tab_dulces:
+        st.markdown(build_dulces_tab_html(), unsafe_allow_html=True)
+        
+    with tab_promos:
+        st.markdown(build_promos_tab_html(), unsafe_allow_html=True)
+
+    # 5. Dibujar el pie de página
+    render_footer()
+
+if __name__ == "__main__":
+    main()
 
