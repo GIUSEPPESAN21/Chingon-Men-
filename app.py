@@ -133,6 +133,70 @@ DULCES = [
 
 # --- 4. FUNCIONES DE RENDERIZADO NATIVAS ---
 
+# ¡NUEVA FUNCIÓN! INYECTAR CSS PARA MEJORAR LA UI
+def inyectar_css_personalizado():
+    """
+    Inyecta CSS para hacer la letra más grande y el diseño más atractivo,
+    manteniendo la estructura nativa de Streamlit.
+    """
+    st.markdown("""
+    <style>
+    /* 1. Carga de Fuentes (¡Para el look "Chingon"!) */
+    @import url('https://fonts.googleapis.com/css2?family=Bungee&family=Teko:wght@400;600&display=swap');
+
+    /* 2. Aplicar Fuentes y Letra Más Grande */
+    
+    /* Headers de Sección (ej. "Granizados") */
+    h1[data-testid="stHeader"] {
+        font-family: 'Bungee', cursive !important;
+        font-size: 2.75rem !important;
+    }
+    
+    /* Títulos de Pestañas */
+    button[data-baseweb="tab"] {
+        font-family: 'Bungee', cursive !important;
+        font-size: 1.1rem !important; /* Letra más grande en pestañas */
+    }
+
+    /* Títulos de Platos (ej. "NO MAMES") */
+    h2[data-testid="stSubheader"] {
+        font-family: 'Teko', sans-serif !important;
+        font-size: 2.25rem !important; /* Letra MUCHO más grande */
+        color: #FFFFFF !important;
+        margin-bottom: -10px !important; /* Ajuste de espacio */
+    }
+
+    /* Descripciones (ej. "Jagermeister y Redbull...") */
+    p[data-testid="stCaption"] {
+        font-family: 'Teko', sans-serif !important;
+        font-size: 1.15rem !important; /* Letra más grande */
+        color: #d1d5db !important;
+    }
+
+    /* Precios (ej. "$14.000") */
+    p, p strong, p span[style*="color: rgb(0, 128, 0)"] {
+        font-family: 'Teko', sans-serif !important;
+        font-size: 1.25rem !important; /* Letra más grande */
+        font-weight: 800 !important;
+    }
+
+    /* 3. Diseño Atractivo (Fondo de cajas) */
+    
+    /* Contenedores de Platos (border=True) */
+    div[data-testid="stVerticalBlockBorderWrapper"] {
+        background-color: #111827; /* Fondo oscuro de las cajas */
+        border-color: #374151;
+        border-radius: 0.75rem; /* Más redondeado */
+        transition: all 0.3s ease;
+    }
+    
+    div[data-testid="stVerticalBlockBorderWrapper"]:hover {
+        border-color: #ec4899; /* Efecto Neón Rosa al pasar el mouse */
+    }
+    </style>
+    """, unsafe_allow_html=True)
+
+
 def render_native_header():
     """Dibuja el logo principal centrado"""
     _, col_img, _ = st.columns([1, 1, 1])
@@ -163,17 +227,21 @@ def render_native_footer():
         with cols_sava[1]:
             st.write("#### Joseph Javier Sánchez Acuña")
             st.caption("CEO - SAVA SOFTWARE FOR ENGINEERING")
-            st.write("Líder visionario con una profunda experiencia en inteligencia artificial y desarrollo de software. Joseph es el cerebro detrás de la arquitectura de OSIRIS, impulsando la innovación y asegurando que nuestra tecnología se mantenga a la vanguardia.")
+            # --- CAMBIO AQUÍ: st.write A st.caption para hacerlo más pequeño ---
+            st.caption("Líder visionario con una profunda experiencia en inteligencia artificial y desarrollo de software. Joseph es el cerebro detrás de la arquitectura de OSIRIS, impulsando la innovación y asegurando que nuestra tecnología se mantenga a la vanguardia.")
             
     current_year = datetime.date.today().year
     st.caption(f"© {current_year} Chingon Cocteles. Todos los derechos reservados.")
 
 # --- 5. FUNCIÓN PRINCIPAL DE LA APP ---
 def main():
-    # 1. Dibujar el logo
+    # 1. ¡NUEVO! Inyectar nuestro CSS personalizado
+    inyectar_css_personalizado()
+
+    # 2. Dibujar el logo
     render_native_header()
 
-    # 2. Definir las pestañas
+    # 3. Definir las pestañas
     tab_list = [
         "💀 Granizados", 
         "🔥 Pa' Picar/Compartir", 
